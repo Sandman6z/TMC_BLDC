@@ -1,0 +1,35 @@
+.\Output\i2s_codec.o: i2s_codec.c
+.\Output\i2s_codec.o: i2s_codec.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\core_cm3.h
+.\Output\i2s_codec.o: D:\Program Files\Keil\ARM\RV31\INC\stdint.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\system_stm32f10x.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_conf.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_bkp.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_can.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_cec.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_crc.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_dac.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_dbgmcu.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_dma.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_exti.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_flash.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_fsmc.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_gpio.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_i2c.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_iwdg.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_pwr.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_rtc.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_sdio.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_spi.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_wwdg.h
+.\Output\i2s_codec.o: .\STM32F10x_StdPeriph_Driver\src\misc.h
+.\Output\i2s_codec.o: D:\Program Files\Keil\ARM\RV31\INC\stdio.h
+.\Output\i2s_codec.o: Global.h
+.\Output\i2s_codec.o: Alarm.h
+.\Output\i2s_codec.o: I2C_LM48100.h

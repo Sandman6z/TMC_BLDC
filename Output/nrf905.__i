@@ -1,0 +1,1 @@
+-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\STM32F107 -I.\STM32F10x_StdPeriph_Driver\inc -I.\STM32F10x_StdPeriph_Driver\src -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\ST\STM32F10x" -o ".\Output\nrf905.o" --omf_browse ".\Output\nrf905.crf" --depend ".\Output\nrf905.d" "nRF905.c"

@@ -1,0 +1,29 @@
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __STEP_MOTOR_H
+#define __STEP_MOTOR_H 
+#endif
+
+
+
+#include "stm32f10x.h"
+
+#define GPIO_MOTOR_RST  GPIOD
+#define GPIO_MOTOR_MS1  GPIOD
+#define GPIO_MOTOR_MS2  GPIOD
+#define GPIO_MOTOR_DIR  GPIOD
+#define GPIO_MOTOR_EN  GPIOD
+#define GPIO_MOTOR_HOME  GPIOD
+#define GPIO_MOTOR_STEP  GPIOA
+
+
+#define MOTOR_RST_Pin  GPIO_Pin_1
+#define MOTOR_MS1_Pin  GPIO_Pin_3
+#define MOTOR_MS2_Pin  GPIO_Pin_4
+#define MOTOR_DIR_Pin  GPIO_Pin_5
+#define MOTOR_EN_Pin  GPIO_Pin_6
+#define MOTOR_HOME_Pin  GPIO_Pin_7
+#define MOTOR_STEP_Pin  GPIO_Pin_0
+
+
+
+

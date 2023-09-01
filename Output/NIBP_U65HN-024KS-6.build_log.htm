@@ -1,0 +1,106 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.35.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: a Windows, HP Inc., LIC=21E4T-RIEHG-SB9EJ-UVG09-4LU2R-JHCXV
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.35.0.2
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.35.0.2
+Dialog DLL:      DARMSTM.DLL V1.68.0.0
+Target DLL:      Segger\JL2CM3.dll V2.99.40.0
+Dialog DLL:      TARMSTM.DLL V1.66.0.0
+ 
+<h2>Project:</h2>
+C:\Users\孙科\Desktop\STM32F103_BLDC_瑞士涡轮-增加过欠压保护-适配v2.00电路板+风扇 -调试最大转速\STM32F107.uvprojx
+Project File Date:  06/15/2023
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'Target 1'
+assembling startup_stm32f10x_cl.s...
+compiling system_stm32f10x.c...
+compiling core_cm3.c...
+compiling TMC4671.c...
+TMC4671.c(267): warning:  #68-D: integer conversion resulted in a change of sign
+  			tmc4671_writeInt(0, TMC4671_PID_POSITION_LIMIT_LOW, -2147483647);
+TMC4671.c: 1 warning, 0 errors
+compiling IIC_FMEEP.C...
+compiling uart_process.c...
+compiling Uart.c...
+compiling stm32f10x_it.c...
+stm32f10x_it.c(410): warning:  #550-D: variable "i"  was set but never used
+    u8 i;
+stm32f10x_it.c(435): warning:  #550-D: variable "i"  was set but never used
+    u8 i;
+stm32f10x_it.c(461): warning:  #550-D: variable "i"  was set but never used
+    u8 i;
+stm32f10x_it.c: 3 warnings, 0 errors
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_flash.c...
+compiling main.c...
+main.c(433): warning:  #128-D: loop is not reachable
+  	while(1)
+main.c(136): warning:  #177-D: variable "a"  was declared but never referenced
+  	int a;
+main.c(990): warning:  #186-D: pointless comparison of unsigned integer with zero
+  if(dt<0)
+main.c(1085): warning:  #177-D: variable "vol"  was declared but never referenced
+  	float vol=0;
+main.c(1115): warning:  #177-D: variable "vol"  was declared but never referenced
+  	float vol=0;
+main.c: 5 warnings, 0 errors
+compiling stm32f10x_tim.c...
+compiling misc.c...
+compiling stm32f10x_spi.c...
+compiling stm32f10x_pwr.c...
+compiling stm32f10x_dma.c...
+compiling stm32f10x_wwdg.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_rtc.c...
+compiling stm32f10x_bkp.c...
+compiling stm32f10x_i2c.c...
+compiling stm32f10x_dbgmcu.c...
+compiling stm32f10x_can.c...
+compiling stm32f10x_adc.c...
+linking...
+Program Size: Code=24448 RO-data=432 RW-data=168 ZI-data=1848  
+FromELF: creating hex file...
+".\Output\NIBP_U65HN-024KS-6.axf" - 0 Error(s), 9 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.8.0.pack
+                ARM.CMSIS.5.8.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.5.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.4.0.pack
+                Keil.STM32F1xx_DFP.2.4.0
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_Target_1
+  d:\Users\sk\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
+  d:\Users\sk\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.5.0
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>
