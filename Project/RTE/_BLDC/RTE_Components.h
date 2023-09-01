@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'STM32F107' 
+ * Project: 'TMC_BLDC' 
  * Target:  'BLDC' 
  */
 
