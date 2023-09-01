@@ -1,4 +1,4 @@
-.\project\objects\main.o: main.c
+.\project\objects\main.o: Project\main.c
 .\project\objects\main.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x.h
 .\project\objects\main.o: .\STM32F10x_StdPeriph_Driver\src\core_cm3.h
 .\project\objects\main.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -29,7 +29,7 @@
 .\project\objects\main.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x_wwdg.h
 .\project\objects\main.o: .\STM32F10x_StdPeriph_Driver\src\misc.h
 .\project\objects\main.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\project\objects\main.o: stm32f10x_it.h
+.\project\objects\main.o: Project\stm32f10x_it.h
 .\project\objects\main.o: .\User\Global.h
 .\project\objects\main.o: .\User\uart.h
 .\project\objects\main.o: .\User\uart_process.h

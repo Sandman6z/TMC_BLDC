@@ -1,5 +1,5 @@
-.\project\objects\stm32f10x_it.o: stm32f10x_it.c
-.\project\objects\stm32f10x_it.o: stm32f10x_it.h
+.\project\objects\stm32f10x_it.o: Project\stm32f10x_it.c
+.\project\objects\stm32f10x_it.o: Project\stm32f10x_it.h
 .\project\objects\stm32f10x_it.o: .\STM32F10x_StdPeriph_Driver\src\stm32f10x.h
 .\project\objects\stm32f10x_it.o: .\STM32F10x_StdPeriph_Driver\src\core_cm3.h
 .\project\objects\stm32f10x_it.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
