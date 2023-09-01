@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>Target 1</TargetName>
+      <TargetName>BLDC</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Project\Objects\</OutputDirectory>
-          <OutputName>NIBP_U65HN-024KS-6</OutputName>
+          <OutputName>TMC_BLDC</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\STM32F107;.\STM32F10x_StdPeriph_Driver\inc;.\STM32F10x_StdPeriph_Driver\src;..\NIBP-PS-2.00调试+风扇正常\FWlib;..\NIBP-PS-2.00调试+风扇正常;.\User</IncludePath>
+              <IncludePath>..\STM32F107;.\STM32F10x_StdPeriph_Driver\inc;.\STM32F10x_StdPeriph_Driver\src;..\NIBP-PS-2.00调试+风扇正常\FWlib;..\NIBP-PS-2.00调试+风扇正常;.\User;.\Libraries\CoreSupport</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -382,12 +382,12 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Source Group 1</GroupName>
+          <GroupName>startup</GroupName>
           <Files>
             <File>
               <FileName>startup_stm32f10x_cl.s</FileName>
               <FileType>2</FileType>
-              <FilePath>.\startup\startup_stm32f10x_cl.s</FilePath>
+              <FilePath>.\Libraries\startup\arm\startup_stm32f10x_cl.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -453,7 +453,7 @@
             <File>
               <FileName>core_cm3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\CoreSupport\core_cm3.c</FilePath>
+              <FilePath>.\Libraries\CoreSupport\core_cm3.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -595,7 +595,7 @@
       <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.5.0" condition="ARMv6_7_8-M Device">
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
-          <targetInfo name="Target 1"/>
+          <targetInfo name="BLDC"/>
         </targetInfos>
       </component>
     </components>
