@@ -1,1 +1,0 @@
--c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\STM32F107 -I.\STM32F10x_StdPeriph_Driver\inc -I.\STM32F10x_StdPeriph_Driver\src -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\ST\STM32F10x" -o ".\Output\ds1341.o" --omf_browse ".\Output\ds1341.crf" --depend ".\Output\ds1341.d" "DS1341.c"

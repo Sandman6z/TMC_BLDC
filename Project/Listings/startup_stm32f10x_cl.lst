@@ -566,14 +566,15 @@ ARM Macro Assembler    Page 9
               00000200 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\output\startup_stm32f10x_cl.d -o.\output\startup_stm32f10x_cl.o 
--I.\STM32F10x_StdPeriph_Driver\inc -I.\STM32F10x_StdPeriph_Driver\src -I..\STM3
-2F107 -I..\NIBP-PS-2.00µ÷ÊÔ+·çÉÈÕý³£\FWlib -I..\NIBP-PS-2.00µ÷ÊÔ+·çÉÈÕý³£ -I.\R
-TE\_Target_1 -IC:\Users\zbn02\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Cor
-e\Include -IC:\Users\zbn02\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Dev
-ice\Include --predefine="__UVISION_VERSION SETA 538" --predefine="_RTE_ SETA 1"
- --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ SETA 1" --list=.\startup_
-stm32f10x_cl.lst startup\startup_stm32f10x_cl.s
+ork --depend=.\project\objects\startup_stm32f10x_cl.d -o.\project\objects\start
+up_stm32f10x_cl.o -I.\STM32F10x_StdPeriph_Driver\inc -I.\STM32F10x_StdPeriph_Dr
+iver\src -I..\STM32F107 -I..\NIBP-PS-2.00µ÷ÊÔ+·çÉÈÕý³£\FWlib -I..\NIBP-PS-2.00µ
+÷ÊÔ+·çÉÈÕý³£ -I.\RTE\_Target_1 -IC:\Users\zbn02\AppData\Local\Arm\Packs\ARM\CMS
+IS\5.9.0\CMSIS\Core\Include -IC:\Users\zbn02\AppData\Local\Arm\Packs\Keil\STM32
+F1xx_DFP\2.4.1\Device\Include --predefine="__UVISION_VERSION SETA 538" --predef
+ine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ SETA 1"
+ --list=.\project\listings\startup_stm32f10x_cl.lst startup\startup_stm32f10x_c
+l.s
 
 
 
