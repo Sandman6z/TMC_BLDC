@@ -1,24 +1,3 @@
-/**
- ******************************************************************************
- * @file    Project/STM32F10x_StdPeriph_Template/main.c
- * @author  MCD Application Team
- * @version V3.5.0
- * @date    08-April-2011
- * @brief   Main program body
- ******************************************************************************
- * @attention
- *
- * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
- * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
- * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
- * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
- * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
- * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
- *
- * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
- ******************************************************************************
- */
-
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
 #include <stdio.h>
@@ -26,46 +5,35 @@
 #include "Global.h"
 #include "uart.h"
 #include "uart_process.h"
-#include "gpio.h"
+#include "../User/gpio.h"
 #include <math.h>
 #include "TMC4671.h"
 #include "adc.h"
+
+#define MAX_SPEED       60000
+#define FAN_SPEED_MAX   20000
+#define FAN_SPEED_MIN   4000
 
 void RCC_Configuration(void);
 void GPIO_Configuration(void);
 void NVIC_Configuration(void);
 void TIM_Configuration1(void);
 void SetSysClockTo16(void);
-
 float calculate_temperature(uint32_t adc_V, float Bx);
 void wdg_init(void);
-void get_sudu(void);
+void get_speed(void);
 void Valva_Init(void);
 void Valva1_pwm(uint16_t dt);
+
 int32_t speed_v;
-
-// #define GPIO_IO0_TMC4671 GPIOA
-// #define IO0_TMC4671_Pin GPIO_Pin_12
-
-// #define GPIO_IO1_TMC4671 GPIOA
-// #define IO1_TMC4671_Pin GPIO_Pin_11
-
-
-
-#define MAX_SPEED       60000
-#define FAN_SPEED_MAX   20000
-#define FAN_SPEED_MIN   4000
-
 u8 rtc_flag;
 uint8_t warkup_flag;
 uint32_t tmcdt;
 __IO uint16_t ADCConvertedValue[15];
-
 uint32_t ADCValue[15], ADCvolt[15];
 uint16_t ADC_count;
 uint32_t testzhn = 0;
-int VM, PWBUS, VB;
-
+int VM, PWBUS, VB;  //VM:V BUS;     VB: Voltage of Brake
 unsigned long zhuansu;
 unsigned char zhuansu1;
 unsigned int POWER = 0;
@@ -73,7 +41,6 @@ unsigned int TEMSTATUS = 0;
 unsigned int test = 0;
 unsigned int RS = 0;
 unsigned int RSTATUS = 0;
-
 extern unsigned int FAN_SPEED_S, FAN_SPEED_M;
 unsigned int zhn = 300;
 float tem, tem2, pwm;
@@ -96,7 +63,6 @@ int main()
     zhuansu1 = 0;
 
     initBase(); // �������ܳ�ʼ��
-
     Valva_Init();
     Valva1_pwm(200);
 
@@ -201,9 +167,9 @@ int main()
             }
         }
 
-        VM = (float)ADCvolt[3] * 6.77;
-        PWBUS = (float)ADCvolt[4] * 6.77;
-        VB = (float)ADCvolt[0] * 6.77;
+        VM      = (float)ADCvolt[3] * 6.77;
+        PWBUS   = (float)ADCvolt[4] * 6.77;
+        VB      = (float)ADCvolt[0] * 6.77;
 
         tem  = calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
         tem2 = calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
@@ -304,13 +270,6 @@ int main()
             STAT_OUT_NORMAL;
         else
             STAT_OUT_ERROR;
-
-        //		if(zhuansu1==0)
-        //			testzhn=300;
-        //		else
-        //			testzhn=2000;
-        //		ADCvolt[1]=testzhn;
-
         if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
             ADCvolt[1] = 0;
         else
@@ -327,12 +286,8 @@ int main()
         if (test >= 1 && POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)
         {
             TMC4671_EN();
-            //			temp=ADCvolt[1];
-            temp = test;
-            temp = temp * MAX_SPEED;
-            temp = temp / 3000;
-            speed_v = temp;
-            speed_v = 0 - speed_v;
+            //temp=ADCvolt[1];
+            speed_v = -(test * MAX_SPEED / 3000);
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);
             // Rotate right
             tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, speed_v);
@@ -352,10 +307,9 @@ int main()
     }
     while(1)
     {
-			;
+		;
     }
 }
-
 
 
 /*********************************************************
@@ -410,10 +364,10 @@ void TIM_Configuration1(void)
 
     TIM_DeInit(TIM2);
     TIM_InternalClockConfig(TIM2);
-    TIM_TimeBaseStructure.TIM_Period = 9999;
-    TIM_TimeBaseStructure.TIM_Prescaler = 55;
+    TIM_TimeBaseStructure.TIM_Period        = 9999;
+    TIM_TimeBaseStructure.TIM_Prescaler     = 55;
     TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+    TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up;
     TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
     // TIM_PrescalerConfig(TIM2, 36, TIM_PSCReloadMode_Immediate);
     TIM_ClearFlag(TIM2, TIM_FLAG_Update);
@@ -423,10 +377,10 @@ void TIM_Configuration1(void)
 
     TIM_DeInit(TIM3);
     TIM_InternalClockConfig(TIM3);
-    TIM_TimeBaseStructure.TIM_Period = 999;
-    TIM_TimeBaseStructure.TIM_Prescaler = 55;
+    TIM_TimeBaseStructure.TIM_Period        = 999;
+    TIM_TimeBaseStructure.TIM_Prescaler     = 55;
     TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+    TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up;
     TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
     // TIM_PrescalerConfig(TIM2, 36, TIM_PSCReloadMode_Immediate);
     TIM_ClearFlag(TIM3, TIM_FLAG_Update);
@@ -437,10 +391,10 @@ void TIM_Configuration1(void)
 
     /*TIM2�ж�ʹ��*/
     //    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-    NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn; // �ж�ͨ��
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3; // ���ȼ�
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_InitStructure.NVIC_IRQChannel                      = TIM2_IRQn; // �ж�ͨ��
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority    = 1;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority           = 3; // ���ȼ�
+    NVIC_InitStructure.NVIC_IRQChannelCmd                   = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
     /*TIM3�ж�ʹ��*/
@@ -615,7 +569,7 @@ void Valva_Init(void)
     NVIC_Init(&NVIC_InitStructure);
 }
 
-void Valva1_pwm(uint16_t dt)
+void Valva1_pwm(uint16_t dt)    //FAN
 {
     //	TIM_OCInitTypeDef  TIM_OCInitStructure;
     //	/* Output Compare Toggle Mode configuration: Channel4 */
@@ -631,7 +585,7 @@ void Valva1_pwm(uint16_t dt)
     TIM_SetCompare4(TIM4, (1119 * dt) / 100);
 }
 
-void get_sudu(void)
+void get_speed(void)
 {
     uint32_t temp;
     if (RI2_flag)
