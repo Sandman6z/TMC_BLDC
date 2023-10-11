@@ -47,3 +47,4 @@ void tmc4671_init_set(void);
 #define TMC4671_PID_POSITION_P_POSITION_I   0x5A
 
 #endif
+

@@ -61,8 +61,8 @@ void initBase(void)
 int main()
 {
     uint32_t i, j, t, ADC_flag;
-    unsigned long zhuansu = 0;
-    unsigned char zhuansu1 = 0;
+//    unsigned long zhuansu = 0;
+//    unsigned char zhuansu1 = 0;
 
     initBase(); // �������ܳ�ʼ��
     Valva_Init();
@@ -497,21 +497,21 @@ void Valva_Init(void)
     NVIC_Init(&NVIC_InitStructure);
 }
 
-// void Valva1_pwm(uint16_t dt) // FAN
-// {
-//     //	TIM_OCInitTypeDef  TIM_OCInitStructure;
-//     //	/* Output Compare Toggle Mode configuration: Channel4 */
-//     //  TIM_OCInitStructure.TIM_OCMode =TIM_OCMode_PWM1;
-//     //  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-//     //  TIM_OCInitStructure.TIM_Pulse = dt;
-//     //  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-//     //  TIM_OC4Init(TIM4, &TIM_OCInitStructure);
-//     if (dt > 100)
-//         dt = 100;
-//     if (dt < 0)
-//         dt = 0;
-//     TIM_SetCompare4(TIM4, (1119 * dt) / 100);
-// }
+ void Valva1_pwm(uint16_t dt) // FAN
+ {
+     //	TIM_OCInitTypeDef  TIM_OCInitStructure;
+     //	/* Output Compare Toggle Mode configuration: Channel4 */
+     //  TIM_OCInitStructure.TIM_OCMode =TIM_OCMode_PWM1;
+     //  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+     //  TIM_OCInitStructure.TIM_Pulse = dt;
+     //  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+     //  TIM_OC4Init(TIM4, &TIM_OCInitStructure);
+     if (dt > 100)
+         dt = 100;
+     if (dt < 0)
+         dt = 0;
+     TIM_SetCompare4(TIM4, (1119 * dt) / 100);
+ }
 
 void get_speed(void)
 {
