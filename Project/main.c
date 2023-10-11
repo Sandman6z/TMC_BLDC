@@ -61,8 +61,8 @@ void initBase(void)
 int main()
 {
     uint32_t i, j, t, ADC_flag;
-//    unsigned long zhuansu = 0;
-//    unsigned char zhuansu1 = 0;
+    // unsigned long zhuansu = 0;
+    // unsigned char zhuansu1 = 0;
 
     initBase(); // �������ܳ�ʼ��
     Valva_Init();
@@ -72,11 +72,9 @@ int main()
     __set_PRIMASK(0);
 
     //	rtc_init();
-
     InitUsart2();
     TMC4671_DIS();
     adc1_mode_config();
-
     timeout = 100;
     while (timeout)
     {
@@ -286,7 +284,6 @@ void RCC_Configuration(void)
 
 void TIM_Configuration1(void)
 {
-
     TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
     NVIC_InitTypeDef NVIC_InitStructure;
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE); // ��TIM2��ʱ��
@@ -341,10 +338,8 @@ void SetSysClockTo16(void)
     /* SYSCLK, HCLK, PCLK2 and PCLK1 configuration -----------------------------*/
     /* RCC system reset(for debug purpose) */
     RCC_DeInit();
-
     /* Enable HSE */
     RCC_HSEConfig(RCC_HSE_ON);
-
     /* Wait till HSE is ready */
     HSEStartUpStatus = RCC_WaitForHSEStartUp();
 
@@ -352,16 +347,12 @@ void SetSysClockTo16(void)
     {
         /* Enable Prefetch Buffer */
         FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
-
         /* Flash 2 wait state */
         FLASH_SetLatency(FLASH_Latency_2);
-
         /* HCLK = SYSCLK */
         RCC_HCLKConfig(RCC_SYSCLK_Div1);
-
         /* PCLK2 = HCLK */
         RCC_PCLK2Config(RCC_HCLK_Div1);
-
         /* PCLK1 = HCLK/2 */
         RCC_PCLK1Config(RCC_HCLK_Div2);
 
@@ -497,21 +488,21 @@ void Valva_Init(void)
     NVIC_Init(&NVIC_InitStructure);
 }
 
- void Valva1_pwm(uint16_t dt) // FAN
- {
-     //	TIM_OCInitTypeDef  TIM_OCInitStructure;
-     //	/* Output Compare Toggle Mode configuration: Channel4 */
-     //  TIM_OCInitStructure.TIM_OCMode =TIM_OCMode_PWM1;
-     //  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-     //  TIM_OCInitStructure.TIM_Pulse = dt;
-     //  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-     //  TIM_OC4Init(TIM4, &TIM_OCInitStructure);
-     if (dt > 100)
-         dt = 100;
-     if (dt < 0)
-         dt = 0;
-     TIM_SetCompare4(TIM4, (1119 * dt) / 100);
- }
+void Valva1_pwm(uint16_t dt) // FAN
+{
+    //	TIM_OCInitTypeDef  TIM_OCInitStructure;
+    //	/* Output Compare Toggle Mode configuration: Channel4 */
+    //  TIM_OCInitStructure.TIM_OCMode =TIM_OCMode_PWM1;
+    //  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+    //  TIM_OCInitStructure.TIM_Pulse = dt;
+    //  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+    //  TIM_OC4Init(TIM4, &TIM_OCInitStructure);
+    if (dt > 100)
+        dt = 100;
+    if (dt < 0)
+        dt = 0;
+    TIM_SetCompare4(TIM4, (1119 * dt) / 100);
+}
 
 void get_speed(void)
 {
