@@ -28,12 +28,12 @@
 .\objects\main.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\objects\main.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\main.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\objects\main.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: stm32f10x_it.h
-.\objects\main.o: ..\User\Global.h
-.\objects\main.o: ..\User\uart.h
-.\objects\main.o: ..\User\uart_process.h
-.\objects\main.o: ..\User\gpio.h
+.\objects\main.o: ../User/Global.h
+.\objects\main.o: ../User/uart.h
+.\objects\main.o: ../User/uart_process.h
+.\objects\main.o: ../User/gpio.h
+.\objects\main.o: ../User/TMC4671.h
+.\objects\main.o: ../User/adc.h
+.\objects\main.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\objects\main.o: ..\User\TMC4671.h
-.\objects\main.o: ..\User\adc.h

@@ -58,6 +58,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "gpio.h": "c",
-    "cmath": "c"
+    "cmath": "c",
+    "adc.h": "c"
   }
 }

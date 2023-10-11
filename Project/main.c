@@ -1,14 +1,24 @@
-/* Includes ------------------------------------------------------------------*/
+/**
+ * @file main.c
+ * @author Sandman Zhang (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2023-10-11
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #include "stm32f10x.h"
-#include <stdio.h>
 #include "stm32f10x_it.h"
-#include "Global.h"
-#include "uart.h"
-#include "uart_process.h"
+#include "../User/Global.h"
+#include "../User/uart.h"
+#include "../User/uart_process.h"
 #include "../User/gpio.h"
+#include "../User/TMC4671.h"
+#include "../User/adc.h"
+#include <stdio.h>
 #include <math.h>
-#include "TMC4671.h"
-#include "adc.h"
 
 #define MAX_SPEED       60000
 #define FAN_SPEED_MAX   20000
@@ -25,24 +35,17 @@ void get_speed(void);
 void Valva_Init(void);
 void Valva1_pwm(uint16_t dt);
 
-int32_t speed_v;
+
 u8 rtc_flag;
 uint8_t warkup_flag;
-uint32_t tmcdt;
-__IO uint16_t ADCConvertedValue[15];
-uint32_t ADCValue[15], ADCvolt[15];
 uint16_t ADC_count;
-uint32_t testzhn = 0;
-int VM, PWBUS, VB;  //VM:V BUS;     VB: Voltage of Brake
-unsigned long zhuansu;
-unsigned char zhuansu1;
-unsigned int POWER = 0;
-unsigned int TEMSTATUS = 0;
-unsigned int test = 0;
-unsigned int RS = 0;
-unsigned int RSTATUS = 0;
+__IO uint16_t ADCConvertedValue[15];
+int32_t speed_v;
+uint32_t tmcdt;
+uint32_t ADCValue[15], ADCvolt[15];
+int VM, PWBUS, VB; // VM:Voltage of BUS;     VB: Voltage of Brake
+unsigned int POWER = 0, TEMSTATUS = 0, test = 0, RS = 0, RSTATUS = 0;
 extern unsigned int FAN_SPEED_S, FAN_SPEED_M;
-unsigned int zhn = 300;
 float tem, tem2, pwm;
 int k;
 
@@ -57,10 +60,9 @@ void initBase(void)
 
 int main()
 {
-    uint32_t i, t, ADC_flag;
-    uint32_t j, temp;
-    zhuansu = 0;
-    zhuansu1 = 0;
+    uint32_t i, j, t, ADC_flag;
+    unsigned long zhuansu = 0;
+    unsigned char zhuansu1 = 0;
 
     initBase(); // �������ܳ�ʼ��
     Valva_Init();
@@ -123,24 +125,6 @@ int main()
             LED_ERROR_OFF;
         }
         clrwdt();
-
-        //		if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_3) == 0 )
-        //		{
-        //			key_count++;
-        //			if(key_count==10)
-        //			{
-        //				zhuansu++;
-        //				if(zhuansu>6)
-        //					zhuansu=0;
-        //				else;
-        //			}
-        //			else;
-        //		}
-        //		else
-        //		{
-        //			key_count=0;
-        //		}
-
         if (ADC_count < 4)
         {
             ADC_count++;
@@ -160,9 +144,9 @@ int main()
             ADC_count = 0;
             for (j = 0; j < 6; j++)
             {
-                ADCvolt[j] = ADCValue[j] / 4;
-                ADCvolt[j] = ADCvolt[j] * 3300;
-                ADCvolt[j] = ADCvolt[j] >> 12;
+                ADCvolt[j]  = ADCValue[j] / 4;
+                ADCvolt[j]  = ADCvolt[j] * 3300;
+                ADCvolt[j]  = ADCvolt[j] >> 12;
                 ADCValue[j] = 0;
             }
         }
@@ -190,44 +174,6 @@ int main()
             Valva1_pwm(20);
             TEMSTATUS = 1;
         }
-
-        //        k=20;
-        //        pwm=(100-k)*tem/30+100-60*(100-k)/30;
-        //        if(tem<-40 || tem>65)
-        //        {
-        //            Valva1_pwm(100);
-        //            TEMSTATUS=0;
-        //        }
-        //        else if(tem>30)
-        //        {
-        //            Valva1_pwm(pwm);
-        //            TEMSTATUS=1;
-        //        }
-        //        else
-        //        {
-        //            Valva1_pwm(k);
-        //            TEMSTATUS=1;
-        //        }
-        //		if(tem<-40)
-        //			Valva1_pwm(100);
-        //		else if(tem<30)
-        //			Valva1_pwm(30);
-        //		else if(tem<40)
-        //			Valva1_pwm(50);
-        //		else if(tem<50)
-        //			Valva1_pwm(70);
-        //		else
-        //			Valva1_pwm(100);
-
-        //		zhuansu++;
-        //		if(zhuansu>40000)
-        //			zhuansu=0;
-        //		else;
-        //
-        //		if(zhuansu>20000)
-        //			zhuansu1=0;
-        //		else
-        //			zhuansu1=1;
         if (PWBUS < 3500 && PWBUS > 1800)
         {
             POWER = 1;
@@ -236,7 +182,6 @@ int main()
         {
             POWER = 0;
         }
-        //	if((VM-PWBUS)>500)
         if (VM > 3000)
         {
             LED_OV_ON;
@@ -249,7 +194,6 @@ int main()
             R_OFF;
             RS = 0;
         }
-
         if (RS == 0)
         {
             if (VB < 100)
@@ -261,11 +205,6 @@ int main()
         {
             RSTATUS = 1;
         }
-
-        //		if(VM>3000)
-        //			LED_ERROR_ON;
-        //		else
-        //			LED_ERROR_OFF;
         if (POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)
             STAT_OUT_NORMAL;
         else
@@ -275,18 +214,10 @@ int main()
         else
             ;
 
-        //		TMC4671_EN();
-        //		ADCvolt[1]=test;
-        //		if(ADCvolt[1]>=2825)
-        //		{
-        //			ADCvolt[1]=2825;
-        //		}
-
-        //		if(ADCvolt[1]>=250 && POWER==1 && TEMSTATUS==1 && RSTATUS==1)
         if (test >= 1 && POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)
         {
             TMC4671_EN();
-            //temp=ADCvolt[1];
+            // temp=ADCvolt[1];
             speed_v = -(test * MAX_SPEED / 3000);
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);
             // Rotate right
@@ -305,12 +236,11 @@ int main()
             }
         }
     }
-    while(1)
+    while (1)
     {
-		;
+        ;
     }
 }
-
 
 /*********************************************************
  *��������: �ж�����
@@ -364,10 +294,10 @@ void TIM_Configuration1(void)
 
     TIM_DeInit(TIM2);
     TIM_InternalClockConfig(TIM2);
-    TIM_TimeBaseStructure.TIM_Period        = 9999;
-    TIM_TimeBaseStructure.TIM_Prescaler     = 55;
+    TIM_TimeBaseStructure.TIM_Period = 9999;
+    TIM_TimeBaseStructure.TIM_Prescaler = 55;
     TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-    TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up;
+    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
     TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
     // TIM_PrescalerConfig(TIM2, 36, TIM_PSCReloadMode_Immediate);
     TIM_ClearFlag(TIM2, TIM_FLAG_Update);
@@ -377,10 +307,10 @@ void TIM_Configuration1(void)
 
     TIM_DeInit(TIM3);
     TIM_InternalClockConfig(TIM3);
-    TIM_TimeBaseStructure.TIM_Period        = 999;
-    TIM_TimeBaseStructure.TIM_Prescaler     = 55;
+    TIM_TimeBaseStructure.TIM_Period = 999;
+    TIM_TimeBaseStructure.TIM_Prescaler = 55;
     TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-    TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up;
+    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
     TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
     // TIM_PrescalerConfig(TIM2, 36, TIM_PSCReloadMode_Immediate);
     TIM_ClearFlag(TIM3, TIM_FLAG_Update);
@@ -391,10 +321,10 @@ void TIM_Configuration1(void)
 
     /*TIM2�ж�ʹ��*/
     //    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-    NVIC_InitStructure.NVIC_IRQChannel                      = TIM2_IRQn; // �ж�ͨ��
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority    = 1;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority           = 3; // ���ȼ�
-    NVIC_InitStructure.NVIC_IRQChannelCmd                   = ENABLE;
+    NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn; // �ж�ͨ��
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3; // ���ȼ�
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
     /*TIM3�ж�ʹ��*/
@@ -494,8 +424,6 @@ void wdg_init(void)
     WWDG_Enable(0x7f);
 }
 
-
-
 void Valva_Init(void)
 {
     GPIO_InitTypeDef GPIO_InitStructure;
@@ -506,14 +434,14 @@ void Valva_Init(void)
     TIM_TimeBaseInitTypeDef TimeBaseInitStruct;
     //	DMA_InitTypeDef DMA_InitStructure;
 
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+    GPIO_InitStructure.GPIO_Mode    = GPIO_Mode_AF_PP;
+    GPIO_InitStructure.GPIO_Pin     = GPIO_Pin_9;
+    GPIO_InitStructure.GPIO_Speed   = GPIO_Speed_10MHz;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode    = GPIO_Mode_IN_FLOATING;
+    GPIO_InitStructure.GPIO_Pin     = GPIO_Pin_12;
+    GPIO_InitStructure.GPIO_Speed   = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE); // �䨰?aTIM2��?����?��
@@ -526,35 +454,35 @@ void Valva_Init(void)
     TIM2 Configuration: Output Compare Toggle Mode:
     --------------------------------------------------------------- */
     /* Time base configuration */
-    TIM_TimeBaseStructure.TIM_Period = 1119;
-    TIM_TimeBaseStructure.TIM_Prescaler = 1;
+    TIM_TimeBaseStructure.TIM_Period        = 1119;
+    TIM_TimeBaseStructure.TIM_Prescaler     = 1;
     TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+    TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up;
 
     TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
 
     /* Output Compare Toggle Mode configuration: Channel4 */
-    TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+    TIM_OCInitStructure.TIM_OCMode      = TIM_OCMode_PWM1;
     TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-    TIM_OCInitStructure.TIM_Pulse = 0;
-    TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+    TIM_OCInitStructure.TIM_Pulse       = 0;
+    TIM_OCInitStructure.TIM_OCPolarity  = TIM_OCPolarity_High;
     TIM_OC4Init(TIM4, &TIM_OCInitStructure);
 
     TIM_Cmd(TIM4, ENABLE);
 
-    NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn; // �ж�ͨ��
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 5; // ���ȼ�
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_InitStructure.NVIC_IRQChannel                      = TIM4_IRQn; // �ж�ͨ��
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority    = 1;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority           = 5; // ���ȼ�
+    NVIC_InitStructure.NVIC_IRQChannelCmd                   = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE); // ����TIM1������ʱ��
 
     TIM_DeInit(TIM1);
-    TimeBaseInitStruct.TIM_Period = 0xFFFF;
-    TimeBaseInitStruct.TIM_Prescaler = 0x00;
-    TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
-    TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
+    TimeBaseInitStruct.TIM_Period           = 0xFFFF;
+    TimeBaseInitStruct.TIM_Prescaler        = 0x00;
+    TimeBaseInitStruct.TIM_ClockDivision    = TIM_CKD_DIV1;
+    TimeBaseInitStruct.TIM_CounterMode      = TIM_CounterMode_Up;
     TIM_TimeBaseInit(TIM1, &TimeBaseInitStruct);
 
     TIM_TIxExternalClockConfig(TIM1, TIM_TIxExternalCLK1Source_TI1, TIM_ICPolarity_Rising, 0);
@@ -562,35 +490,35 @@ void Valva_Init(void)
     TIM_SetCounter(TIM1, 0);
     TIM_Cmd(TIM1, ENABLE);
 
-    NVIC_InitStructure.NVIC_IRQChannel = TIM1_UP_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; // �ж�ռ�ȵȼ�0
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 6;
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_InitStructure.NVIC_IRQChannel                      = TIM1_UP_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority    = 0; // �ж�ռ�ȵȼ�0
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority           = 6;
+    NVIC_InitStructure.NVIC_IRQChannelCmd                   = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 }
 
-void Valva1_pwm(uint16_t dt)    //FAN
-{
-    //	TIM_OCInitTypeDef  TIM_OCInitStructure;
-    //	/* Output Compare Toggle Mode configuration: Channel4 */
-    //  TIM_OCInitStructure.TIM_OCMode =TIM_OCMode_PWM1;
-    //  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-    //  TIM_OCInitStructure.TIM_Pulse = dt;
-    //  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-    //  TIM_OC4Init(TIM4, &TIM_OCInitStructure);
-    if (dt > 100)
-        dt = 100;
-    if (dt < 0)
-        dt = 0;
-    TIM_SetCompare4(TIM4, (1119 * dt) / 100);
-}
+// void Valva1_pwm(uint16_t dt) // FAN
+// {
+//     //	TIM_OCInitTypeDef  TIM_OCInitStructure;
+//     //	/* Output Compare Toggle Mode configuration: Channel4 */
+//     //  TIM_OCInitStructure.TIM_OCMode =TIM_OCMode_PWM1;
+//     //  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+//     //  TIM_OCInitStructure.TIM_Pulse = dt;
+//     //  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+//     //  TIM_OC4Init(TIM4, &TIM_OCInitStructure);
+//     if (dt > 100)
+//         dt = 100;
+//     if (dt < 0)
+//         dt = 0;
+//     TIM_SetCompare4(TIM4, (1119 * dt) / 100);
+// }
 
 void get_speed(void)
 {
     uint32_t temp;
     if (RI2_flag)
     {
-        temp = ((uint32_t)Rx_Buf2[3] - 0x30) * 10000;
+        temp =        ((uint32_t)Rx_Buf2[3] - 0x30) * 10000;
         temp = temp + ((uint32_t)Rx_Buf2[4] - 0x30) * 1000;
         temp = temp + ((uint32_t)Rx_Buf2[5] - 0x30) * 100;
         temp = temp + ((uint32_t)Rx_Buf2[6] - 0x30) * 10;
@@ -604,11 +532,10 @@ void get_speed(void)
         usart2_send('S');
         usart2_send('E');
         usart2_send('=');
-        usart2_send(Rx_Buf2[3]);
-        usart2_send(Rx_Buf2[4]);
-        usart2_send(Rx_Buf2[5]);
-        usart2_send(Rx_Buf2[6]);
-        usart2_send(Rx_Buf2[7]);
+        for (int i = 3; i <= 7; i++)
+        {
+            usart2_send(Rx_Buf2[i]);
+        }
         usart2_send(',');
 
         // tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);
@@ -664,8 +591,8 @@ float calculate_temperature(uint32_t adc_V, float Bx)
     float Ka = 273.15;
     float T2 = Ka + 25;
 
-    VCC  = (4096 * 1200) / ADCConvertedValue[5];
-    Rt   = (Rp * adc_V) / (VCC - adc_V);
+    VCC = (4096 * 1200) / ADCConvertedValue[5];
+    Rt = (Rp * adc_V) / (VCC - adc_V);
     temp = 1.0f / ((1.0f / T2) + (log(Rt / Rp) / Bx)) - Ka + 0.5f;
 
     return temp;
