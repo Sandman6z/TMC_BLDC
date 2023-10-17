@@ -17,7 +17,7 @@ Library Manager: ArmAr.exe V5.06 update 7 (build 960)
 Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
 CPU DLL:         SARMCM3.DLL V5.38.0.0
 Dialog DLL:      DARMSTM.DLL V1.69.1.0
-Target DLL:      UL2CM3.DLL V1.164.8.0
+Target DLL:      Segger\JL2CM3.dll V2.99.42.0
 Dialog DLL:      TARMSTM.DLL V1.67.1.0
  
 <h2>Project:</h2>
@@ -27,16 +27,14 @@ Project File Date:  10/11/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Program Files\Keil_v5\ARM\ARMCC\Bin'
 Build target 'BLDC'
-compiling main.c...
-main.c(237): warning:  #128-D: loop is not reachable
-      while (1)
-main.c(502): warning:  #186-D: pointless comparison of unsigned integer with zero
-      if (dt < 0)
-main.c: 2 warnings, 0 errors
+compiling TMC4671.c...
+..\User\TMC4671.c(220): warning:  #68-D: integer conversion resulted in a change of sign
+  	tmc4671_writeInt(0, TMC4671_PID_POSITION_LIMIT_LOW, -2147483647);
+..\User\TMC4671.c: 1 warning, 0 errors
 linking...
-Program Size: Code=24180 RO-data=332 RW-data=148 ZI-data=1844  
+Program Size: Code=24156 RO-data=332 RW-data=148 ZI-data=1844  
 FromELF: creating hex file...
-".\Objects\TMC_BLDC.axf" - 0 Error(s), 2 Warning(s).
+".\Objects\TMC_BLDC.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 

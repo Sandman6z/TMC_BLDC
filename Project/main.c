@@ -212,7 +212,7 @@ int main()
         else
             ;
 
-        if (test >= 1 && POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)
+        if (test >= 1 )  //  if (test >= 1 && POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)
         {
             TMC4671_EN();
             // temp=ADCvolt[1];

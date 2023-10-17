@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/zbn02/Desktop/TMC_BLDC/Project",
-      "program": "c:/Users/zbn02/Desktop/TMC_BLDC/Project/build/Debug/outDebug",
+      "cwd": "c:/Users/zbn02/Desktop/TMC_BLDC/User",
+      "program": "c:/Users/zbn02/Desktop/TMC_BLDC/User/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
