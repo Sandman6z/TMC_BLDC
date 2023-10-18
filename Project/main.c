@@ -33,7 +33,7 @@ float calculate_temperature(uint32_t adc_V, float Bx);
 void wdg_init(void);
 void get_speed(void);
 void Valva_Init(void);
-void Valva1_pwm(uint16_t dt);
+//void Valva1_pwm(uint16_t dt);
 
 
 u8 rtc_flag;
@@ -46,7 +46,7 @@ uint32_t ADCValue[15], ADCvolt[15];
 int VM, PWBUS, VB; // VM:Voltage of BUS;     VB: Voltage of Brake
 unsigned int POWER = 0, TEMSTATUS = 0, test = 0, RS = 0, RSTATUS = 0;
 extern unsigned int FAN_SPEED_S, FAN_SPEED_M;
-float tem, tem2, pwm;
+
 int k;
 
 // ϵͳ�������ܳ�ʼ�����
@@ -66,7 +66,7 @@ int main()
 
     initBase(); // �������ܳ�ʼ��
     Valva_Init();
-    Valva1_pwm(200);
+//    Valva1_pwm(200);
 
     TIM_Configuration1();
     __set_PRIMASK(0);
@@ -153,23 +153,23 @@ int main()
         PWBUS   = (float)ADCvolt[4] * 6.77;
         VB      = (float)ADCvolt[0] * 6.77;
 
-        tem  = calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
-        tem2 = calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
-
-        pwm = 3 * tem - 130;
+		float tem  = calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
+        float tem2 = calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
+        float pwm = 3 * tem - 130;
+				
         if (tem < -40 || tem > 72)
         {
-            Valva1_pwm(100);
-            TEMSTATUS = 0;
+//            Valva1_pwm(100);
+            TEMSTATUS = 0;	//backup error
         }
         else if (tem > 50)
         {
-            Valva1_pwm(pwm);
+//            Valva1_pwm(pwm);
             TEMSTATUS = 1;
         }
         else
         {
-            Valva1_pwm(20);
+//            Valva1_pwm(20);
             TEMSTATUS = 1;
         }
         if (PWBUS < 3500 && PWBUS > 1800)
@@ -209,8 +209,6 @@ int main()
             STAT_OUT_ERROR;
         if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
             ADCvolt[1] = 0;
-        else
-            ;
 
         if (test >= 1 )  //  if (test >= 1 && POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)
         {
@@ -233,10 +231,6 @@ int main()
                 TMC4671_DIS();
             }
         }
-    }
-    while (1)
-    {
-        ;
     }
 }
 
@@ -488,21 +482,21 @@ void Valva_Init(void)
     NVIC_Init(&NVIC_InitStructure);
 }
 
-void Valva1_pwm(uint16_t dt) // FAN
-{
-    //	TIM_OCInitTypeDef  TIM_OCInitStructure;
-    //	/* Output Compare Toggle Mode configuration: Channel4 */
-    //  TIM_OCInitStructure.TIM_OCMode =TIM_OCMode_PWM1;
-    //  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-    //  TIM_OCInitStructure.TIM_Pulse = dt;
-    //  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-    //  TIM_OC4Init(TIM4, &TIM_OCInitStructure);
-    if (dt > 100)
-        dt = 100;
-    if (dt < 0)
-        dt = 0;
-    TIM_SetCompare4(TIM4, (1119 * dt) / 100);
-}
+//void Valva1_pwm(uint16_t dt) // FAN
+//{
+//    //	TIM_OCInitTypeDef  TIM_OCInitStructure;
+//    //	/* Output Compare Toggle Mode configuration: Channel4 */
+//    //  TIM_OCInitStructure.TIM_OCMode =TIM_OCMode_PWM1;
+//    //  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+//    //  TIM_OCInitStructure.TIM_Pulse = dt;
+//    //  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+//    //  TIM_OC4Init(TIM4, &TIM_OCInitStructure);
+//    if (dt > 100)
+//        dt = 100;
+//    if (dt < 0)
+//        dt = 0;
+//    TIM_SetCompare4(TIM4, (1119 * dt) / 100);
+//}
 
 void get_speed(void)
 {

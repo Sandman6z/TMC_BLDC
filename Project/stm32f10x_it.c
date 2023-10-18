@@ -391,18 +391,14 @@ void DMA2_Channel4_IRQHandler(void)
  */
 void UART5_IRQHandler(void)
 {
-  u8 i;
-  /*  if(USART_GetITStatus(UART5, USART_IT_TXE) != RESET)
-    {
 
-    }*/
   if (USART_GetITStatus(UART5, USART_IT_TXE) != RESET)
   {
     USART_SendData(UART5, 0);
   }
   if (USART_GetITStatus(UART5, USART_IT_RXNE) != RESET)
   {
-    i = USART_ReceiveData(UART5); // ��������
+    USART_ReceiveData(UART5); // ��������
   }
 }
 /******************************************************************************/
@@ -416,18 +412,13 @@ void UART5_IRQHandler(void)
  */
 void USART1_IRQHandler(void)
 {
-  u8 i;
-  /*  if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)
-    {
-
-    }*/
   if (USART_GetITStatus(USART1, USART_IT_TXE) != RESET)
   {
     USART_SendData(USART1, 0);
   }
   if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
   {
-    i = USART_ReceiveData(USART1); // ��������
+    USART_ReceiveData(USART1); // ��������
   }
 }
 
@@ -442,14 +433,10 @@ void USART1_IRQHandler(void)
  */
 void UART4_IRQHandler(void)
 {
-  u8 i;
-  /*  if(USART_GetITStatus(UART4, USART_IT_TXE) != RESET)
-    {
 
-    }*/
   if (USART_GetITStatus(UART4, USART_IT_RXNE) != RESET)
   {
-    i = USART_ReceiveData(UART4); // ��������
+    USART_ReceiveData(UART4); // ��������
   }
 
   if (USART_GetITStatus(UART4, USART_IT_TXE) != RESET)
@@ -596,7 +583,6 @@ void USART2_IRQHandler(void)
     }
     else
     {
-
       nRec2 = 0;
     }
   }

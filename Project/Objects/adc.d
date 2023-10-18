@@ -1,4 +1,6 @@
 .\objects\adc.o: ..\User\adc.c
+.\objects\adc.o: ..\User\adc.h
+.\objects\adc.o: ..\User\Global.h
 .\objects\adc.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x.h
 .\objects\adc.o: ..\Libraries\CMSIS\CoreSupport\core_cm3.h
 .\objects\adc.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,12 +30,4 @@
 .\objects\adc.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\objects\adc.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\adc.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\objects\adc.o: ..\User\adc.h
-.\objects\adc.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\adc.o: ..\Project\stm32f10x_it.h
-.\objects\adc.o: ..\User\Global.h
-.\objects\adc.o: ..\User\uart.h
-.\objects\adc.o: ..\User\uart_process.h
-.\objects\adc.o: ..\User\gpio.h
-.\objects\adc.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\adc.o: ..\User\TMC4671.h
