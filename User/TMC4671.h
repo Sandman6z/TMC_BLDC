@@ -1,4 +1,3 @@
-
 #ifndef __TMC4671_H
 #define __TMC4671_H
 
@@ -11,7 +10,7 @@ void delay_TMC4671(uint16_t dt);
 void init_TMC4671(void);
 void write_TMC4671(uint8_t addr, uint32_t dt);
 uint32_t Read_TMC4671(uint8_t addr);
-void tmc4671_writeInt(uint8_t fg, uint8_t addr, uint32_t dt);
+void tmc4671_writeInt(uint8_t fg, uint8_t addr, int32_t dt);
 uint32_t tmc4671_readInt(uint8_t fg, uint8_t addr, uint32_t dt);
 void tmc4671_init_set(void);
 
@@ -47,4 +46,3 @@ void tmc4671_init_set(void);
 #define TMC4671_PID_POSITION_P_POSITION_I   0x5A
 
 #endif
-

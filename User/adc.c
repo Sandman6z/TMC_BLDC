@@ -1,10 +1,10 @@
 #include "adc.h"
-#include "Global.h"
+#include "../User/Global.h"
 #include "TMC4671.h"
 
 extern __IO uint16_t ADCConvertedValue[15]; 
 
-void adc1_mode_config(void)
+void ADC1_MODE_CONFIG(void)
 {
     unsigned char NUM_CH = 6;
 
@@ -60,8 +60,8 @@ void adc1_mode_config(void)
         ADC_ExternalTrigInjectedConvConfig(ADC1, ADC_ExternalTrigInjecConv_None);		// ADC1 injected external trigger configuration
         ADC_InjectedDiscModeCmd(ADC1, DISABLE);
 
-        ADC_ExternalTrigInjectedConvCmd(ADC1, ENABLE); */
-    /////////////////////////////////////////////////////////////
+        ADC_ExternalTrigInjectedConvCmd(ADC1, ENABLE); 
+    */
 
     ADC_DMACmd(ADC1, ENABLE);   // Enable ADC1 DMA
     ADC_Cmd(ADC1, ENABLE);      // Enable ADC1
@@ -77,7 +77,7 @@ void adc1_mode_config(void)
     DMA_Cmd(DMA1_Channel1, ENABLE); // ��ADC_SoftwareStartConvCmd(ADC1, ENABLE);��Ȼ���׳���ADC�ɼ����ִ�λ
 }
 
-void adcinit(void)
+void ADCInit(void)
 {
     ADC_InitTypeDef ADC_InitStructure; // ADC????????
     DMA_InitTypeDef DMA_InitStructure; // DMA????????

@@ -10,7 +10,7 @@
 #define Get_SPI_MISO()  	GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_14)
 
 #define Set_SPI_TMC4671() 	GPIO_SetBits(GPIOB,GPIO_Pin_12)
-#define ReSet_SPI_TMC4671() GPIO_ResetBits(GPIOB,GPIO_Pin_12)
+#define ReSet_SPI_TMC4671()	GPIO_ResetBits(GPIOB,GPIO_Pin_12)
 
 #define PID_TORQUE_I		800
 #define PID_TORQUE_P		200
@@ -53,20 +53,20 @@ void GPIO_TMC4671_SPI_init(void)
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2,ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);
 	//CS
-	GPIO_InitStructure.GPIO_Pin 	=  GPIO_Pin_12;
+	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_12;
 	GPIO_InitStructure.GPIO_Speed	= GPIO_Speed_10MHz;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_Out_PP;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	//SCK
-	GPIO_InitStructure.GPIO_Pin 	=  GPIO_Pin_13;
+	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_13;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF_PP;// GPIO_Mode_Out_PP;//
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	//MISO
-	GPIO_InitStructure.GPIO_Pin 	=  GPIO_Pin_14;
+	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_14;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_IPU;//GPIO_Mode_IN_FLOATING;// GPIO_Mode_AF_PP;//
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	//MOSI
-	GPIO_InitStructure.GPIO_Pin 	=  GPIO_Pin_15;
+	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_15;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF_PP;//GPIO_Mode_Out_PP;// 
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
@@ -158,6 +158,7 @@ void write_TMC4671(uint8_t addr,uint32_t dt)
 uint32_t Read_TMC4671(uint8_t addr)
 {
 	uint32_t dt;
+
 	ReSet_SPI_TMC4671();
 	delay_TMC4671(3);
 	SPI_TMC4671_SendByte(addr & 0x7f);
@@ -170,7 +171,7 @@ uint32_t Read_TMC4671(uint8_t addr)
 	return dt;
 }
 
-void tmc4671_writeInt(uint8_t fg, uint8_t addr, uint32_t dt)
+void tmc4671_writeInt(uint8_t fg, uint8_t addr, int32_t dt)
 {
 	if (fg != 0)
 		return;
@@ -217,7 +218,7 @@ void tmc4671_init_set(void)
 	tmc4671_writeInt(0, TMC4671_PID_TORQUE_FLUX_LIMITS, 10000);
 	tmc4671_writeInt(0, TMC4671_PID_ACCELERATION_LIMITS, 400000);
 	tmc4671_writeInt(0, TMC4671_PID_VELOCITY_LIMIT, 70000);
-	tmc4671_writeInt(0, TMC4671_PID_POSITION_LIMIT_LOW, -2147483647);
+	tmc4671_writeInt(0, TMC4671_PID_POSITION_LIMIT_LOW, -2147483648);
 	tmc4671_writeInt(0, TMC4671_PID_POSITION_LIMIT_HIGH, 2147483647);
 	tmc4671_writeInt(0, TMC4671_PID_TORQUE_P_TORQUE_I, (PID_TORQUE_P<<16)|PID_TORQUE_I);
 	tmc4671_writeInt(0, TMC4671_PID_FLUX_P_FLUX_I, (PID_FLUX_P<<16)|PID_FLUX_I);

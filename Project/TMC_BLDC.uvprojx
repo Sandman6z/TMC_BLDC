@@ -449,6 +449,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\adc.c</FilePath>
             </File>
+            <File>
+              <FileName>FAN_ctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\FAN_ctrl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
