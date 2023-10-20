@@ -1,6 +1,6 @@
 #ifndef _UART_H
 #define _UART_H
-#endif
+
 
 #include "stm32f10x.h"
 
@@ -11,7 +11,7 @@ void initUsart5(void);
 void initUsart4(void);
 
 
-
+#endif
 
 
 

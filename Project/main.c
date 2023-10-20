@@ -57,7 +57,6 @@ int main()
     SysInit(); // �������ܳ�ʼ��
     TIM_Configuration1();
     __set_PRIMASK(0);
-
     InitUsart2();
     TMC4671_DIS();
     ADC1_MODE_CONFIG();
@@ -69,8 +68,8 @@ int main()
     //	ADCInit();
     init_TMC4671();
     tmc4671_writeInt(0, 1, 0);
-    uint32_t tmcdt = tmc4671_readInt(1, 0, 0);
-    if (tmcdt == 0x34363731)
+    //uint32_t tmcdt = tmc4671_readInt(1, 0, 0);
+    if (tmc4671_readInt(1, 0, 0) == 0x34363731)
     {
         tmc4671_init_set();
         timeout = 100;
@@ -88,7 +87,6 @@ int main()
     {
         clrwdt();
     }
-
     for (i = 0; i < 3; i++)
     {
         ADCValue[i] = 0;
@@ -129,7 +127,7 @@ int main()
         int VM     = (float)ADCvolt[3] * 6.77;	//	VM:Voltage of BUS
         int PWBUS  = (float)ADCvolt[4] * 6.77;	
         int VB     = (float)ADCvolt[0] * 6.77;	//	VB: Voltage of Brake
-				float tem  = calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
+		float tem  = calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
         float tem2 = calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
 //        float pwm  = 3 * tem - 130;
 				

@@ -1,6 +1,6 @@
 #ifndef _UART_PROCESS_H
 #define _UART_PROCESS_H
-#endif
+
 
 #include "stm32f10x.h"
 
@@ -8,9 +8,9 @@
 
 
 
-#define GET_DATA_CMD 0x00
-#define PRESSURE_CHECK_CMD 0x01
-#define FLOW_CHECK_CMD 0x02
+#define GET_DATA_CMD        0x00
+#define PRESSURE_CHECK_CMD  0x01
+#define FLOW_CHECK_CMD      0x02
 
 
 void usart2_send(u8 dt);
@@ -24,5 +24,5 @@ void uart5_SendString (unsigned char  *pt);
 
 
 
-
+#endif
 

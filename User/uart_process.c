@@ -1,7 +1,5 @@
-
 #include "uart_process.h"
 #include "Global.h"
-
 
 /***********************************************************************************
 * Uart1_Send;
@@ -99,6 +97,3 @@ void uart5_SendString (unsigned char  *pt)
 		uart5_send (*pt++);
 	}
 }
- 
-
-
