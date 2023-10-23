@@ -33,7 +33,7 @@ ONLY CHANGE NAME:
 | ADC_Channel_5 | 3 | PA5 | TUR_T_ADC  | TUR_T_ADC    |  |
 | ADC_Channel_4 | 4 | PA4 | VM_ADC     | VM_ADC       |  |
 | ADC_Channel_8 | 5 | PB0 | PWBUS_ADC  |              |  |
-|
+||||||||
 |               |   | PA2 |            | MOS_T_ADC    | ADC_Channel_2 |
 |               |   | PA3 |            | I_SUM_ADC    | ADC_Channel_3 |
 
