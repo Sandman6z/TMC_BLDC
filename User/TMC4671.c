@@ -59,15 +59,15 @@ void GPIO_TMC4671_SPI_init(void)
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	//SCK
 	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_13;
-	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF_PP;// GPIO_Mode_Out_PP;//
+	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF_PP;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	//MISO
 	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_14;
-	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_IPU;//GPIO_Mode_IN_FLOATING;// GPIO_Mode_AF_PP;//
+	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_IPU;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	//MOSI
 	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_15;
-	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF_PP;//GPIO_Mode_Out_PP;// 
+	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF_PP;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
 }
@@ -166,7 +166,6 @@ uint32_t Read_TMC4671(uint8_t addr)
 	dt = (dt << 8) + SPI_TMC4671_SendByte(0);
 	dt = (dt << 8) + SPI_TMC4671_SendByte(0);
 	dt = (dt << 8) + SPI_TMC4671_SendByte(0);
-
 	Set_SPI_TMC4671();
 	return dt;
 }

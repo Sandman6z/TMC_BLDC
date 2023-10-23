@@ -37,7 +37,8 @@ u8 rtc_flag;
 uint8_t warkup_flag;
 __IO uint16_t ADCConvertedValue[15];
 int32_t speed_v;
-uint32_t ADCValue[15], ADCvolt[15];
+uint32_t ADCValue[15] = {0, 0, 0}; // 初始化前3个元素为0
+uint32_t ADCvolt[15];
 uint32_t POWER = 0, TEMSTATUS = 0, test = 0, RS = 0, RSTATUS = 0;
 extern uint32_t FAN_SPEED_S, FAN_SPEED_M;
 
@@ -51,10 +52,9 @@ void SysInit(void)
 
 int main()
 {
-    uint16_t ADC_count = 0;
-    uint32_t i, j, t, ADC_flag;
+    uint16_t ADC_count = 0, ADC_flag;
 
-    SysInit(); // �������ܳ�ʼ��
+    SysInit();
     TIM_Configuration1();
     __set_PRIMASK(0);
     InitUsart2();
@@ -65,10 +65,8 @@ int main()
     {
         clrwdt();
     }
-    //	ADCInit();
     init_TMC4671();
     tmc4671_writeInt(0, 1, 0);
-    //uint32_t tmcdt = tmc4671_readInt(1, 0, 0);
     if (tmc4671_readInt(1, 0, 0) == 0x34363731)
     {
         tmc4671_init_set();
@@ -87,25 +85,17 @@ int main()
     {
         clrwdt();
     }
-    for (i = 0; i < 3; i++)
-    {
-        ADCValue[i] = 0;
-    }
     while (1)
     {
-        if (FAN_SPEED_MIN > FAN_SPEED_M || FAN_SPEED_M > FAN_SPEED_MAX)
-            LED_ERROR_ON;
-        else
-            LED_ERROR_OFF;
         clrwdt();
         if (ADC_count < 4)
         {
             ADC_count++;
-            for (j = 0; j < 6; j++)
+            for (int j = 0; j < 6; j++)
             {
                 ADCValue[j] = ADCValue[j] + ADCConvertedValue[j];
             }
-            t = 10;
+            int t = 10;
             while (t)
             {
                 t--;
@@ -115,7 +105,7 @@ int main()
         if (ADC_count >= 4)
         {
             ADC_count = 0;
-            for (j = 0; j < 6; j++)
+            for (int j = 0; j < 6; j++)
             {
                 ADCvolt[j]  = ADCValue[j] / 4;
                 ADCvolt[j]  = ADCvolt[j] * 3300;
@@ -132,7 +122,7 @@ int main()
 //        float pwm  = 3 * tem - 130;
 				
         if (tem < -40 || tem > 72)
-            TEMSTATUS = 0;	//backup error
+            TEMSTATUS = 0;	                    //backup error
         else if (tem > 50)
             TEMSTATUS = 1;
         else
