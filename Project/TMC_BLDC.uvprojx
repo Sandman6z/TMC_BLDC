@@ -444,6 +444,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\adc.c</FilePath>
             </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\led.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
