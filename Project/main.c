@@ -48,14 +48,15 @@ void SysInit(void)
     RCC_Configuration();  // System Clocks Configuration
     NVIC_Configuration(); // �ж� NVIC configuration
     GPIO_Configuration(); // Configure the GPIO ports
+    TIM_Configuration1();
 }
 
 int main()
-{
+{	
     uint16_t ADC_count = 0, ADC_flag;
 
     SysInit();
-    TIM_Configuration1();
+    
     __set_PRIMASK(0);
     InitUsart2();
     TMC4671_DIS();
