@@ -27,7 +27,7 @@
 void RCC_Configuration(void);
 void GPIO_Configuration(void);
 void NVIC_Configuration(void);
-void TIM_Configuration1(void);
+void TIM_Configuration(void);
 void SetSysClockTo16(void);
 float calculate_temperature(uint32_t adc_V, float Bx);
 void wdg_init(void);
@@ -36,7 +36,7 @@ void get_speed(void);
 u8 rtc_flag;
 uint8_t warkup_flag;
 __IO uint16_t ADCConvertedValue[15];
-int32_t speed_v;
+int32_t Turbo_speed;
 uint32_t ADCValue[15] = {0, 0, 0}; // 初始化前3个元素为0
 uint32_t ADCvolt[15];
 uint32_t POWER = 0, TEMSTATUS = 0, test = 0, RS = 0, RSTATUS = 0;
@@ -48,7 +48,10 @@ void SysInit(void)
     RCC_Configuration();  // System Clocks Configuration
     NVIC_Configuration(); // �ж� NVIC configuration
     GPIO_Configuration(); // Configure the GPIO ports
-    TIM_Configuration1();
+    TIM_Configuration();
+    InitUsart2();
+    TMC4671_DIS();
+    ADC1_MODE_CONFIG();
 }
 
 int main()
@@ -56,11 +59,8 @@ int main()
     uint16_t ADC_count = 0, ADC_flag;
 
     SysInit();
-    
     __set_PRIMASK(0);
-    InitUsart2();
-    TMC4671_DIS();
-    ADC1_MODE_CONFIG();
+
     timeout = 100;
     while (timeout)
     {
@@ -92,9 +92,9 @@ int main()
         if (ADC_count < 4)
         {
             ADC_count++;
-            for (int j = 0; j < 6; j++)
+            for (int i = 0; i < 6; i++)
             {
-                ADCValue[j] = ADCValue[j] + ADCConvertedValue[j];
+                ADCValue[i] = ADCValue[i] + ADCConvertedValue[i];
             }
             int t = 10;
             while (t)
@@ -106,19 +106,19 @@ int main()
         if (ADC_count >= 4)
         {
             ADC_count = 0;
-            for (int j = 0; j < 6; j++)
+            for (int i = 0; i < 6; i++)
             {
-                ADCvolt[j]  = ADCValue[j] / 4;
-                ADCvolt[j]  = ADCvolt[j] * 3300;
-                ADCvolt[j]  = ADCvolt[j] >> 12;
-                ADCValue[j] = 0;
+                ADCvolt[i]  = ADCValue[i] / 4;
+                ADCvolt[i]  = ADCvolt[i] * 3300;
+                ADCvolt[i]  = ADCvolt[i] >> 12;
+                ADCValue[i] = 0;
             }
         }
    
         int VM     = (float)ADCvolt[3] * 6.77;	//	VM:Voltage of BUS
         int PWBUS  = (float)ADCvolt[4] * 6.77;	
         int VB     = (float)ADCvolt[0] * 6.77;	//	VB: Voltage of Brake
-		float tem  = calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
+				float tem  = calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
         float tem2 = calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
 //        float pwm  = 3 * tem - 130;
 				
@@ -168,13 +168,13 @@ int main()
 				
 				GPIOB->ODR = 0X01;
 				
-        if (test >= 1 && test <= 1500)  //  if (test >= 1 && POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)
+        if (test >= 1 && test <= 1500 && POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)
         {
             TMC4671_EN();
-            speed_v = -(test * MAX_SPEED / 3000);
+            Turbo_speed = -(test * MAX_SPEED / 3000);
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);
             // Rotate right
-            tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, speed_v);
+            tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, Turbo_speed);
             ADC_flag = 1;
         }
         else
@@ -231,7 +231,7 @@ void RCC_Configuration(void)
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
 }
 
-void TIM_Configuration1(void)
+void TIM_Configuration(void)
 {
     TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
     NVIC_InitTypeDef NVIC_InitStructure;
