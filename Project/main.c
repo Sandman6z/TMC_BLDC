@@ -41,6 +41,7 @@ uint32_t ADCValue[15] = {0, 0, 0}; // 初始化前3个元素为0
 uint32_t ADCvolt[15];
 uint32_t POWER = 0, TEMSTATUS = 0, test = 0, RS = 0, RSTATUS = 0;
 extern uint32_t FAN_SPEED_S, FAN_SPEED_M;
+int VM, PWBUS, VB, Speed_receive;
 
 void SysInit(void)
 {
@@ -92,9 +93,9 @@ int main()
         if (ADC_count < 4)
         {
             ADC_count++;
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++) 
             {
-                ADCValue[i] = ADCValue[i] + ADCConvertedValue[i];
+                ADCValue[i] += ADCConvertedValue[i];
             }
             int t = 10;
             while (t)
@@ -114,10 +115,14 @@ int main()
                 ADCValue[i] = 0;
             }
         }
-   
-        int VM     = (float)ADCvolt[3] * 6.77;	//	VM:Voltage of BUS
-        int PWBUS  = (float)ADCvolt[4] * 6.77;	
-        int VB     = (float)ADCvolt[0] * 6.77;	//	VB: Voltage of Brake
+//				for ( int i = 1; i < 100; i++)
+//				{
+//					Speed_receive = (float)ADCvolt[1] * 6.77;
+//				}
+				
+        VM     = (float)ADCvolt[3] * 6.77;	//	VM:Voltage of BUS
+        PWBUS  = (float)ADCvolt[4] * 6.77;	
+        VB     = (float)ADCvolt[0] * 6.77;	//	VB: Voltage of Brake
 				float tem  = calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
         float tem2 = calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
 //        float pwm  = 3 * tem - 130;
@@ -168,7 +173,7 @@ int main()
 				
 				GPIOB->ODR = 0X01;
 				
-        if (test >= 1 && test <= 1500 && POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)
+        if (test >= 1 && test <= 1500 )		//&& POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1
         {
             TMC4671_EN();
             Turbo_speed = -(test * MAX_SPEED / 3000);
