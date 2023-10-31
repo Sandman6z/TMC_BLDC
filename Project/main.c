@@ -115,14 +115,11 @@ int main()
                 ADCValue[i] = 0;
             }
         }
-//				for ( int i = 1; i < 100; i++)
-//				{
-//					Speed_receive = (float)ADCvolt[1] * 6.77;
-//				}
-				
-        VM     = (float)ADCvolt[3] * 6.77;	//	VM:Voltage of BUS
-        PWBUS  = (float)ADCvolt[4] * 6.77;	
-        VB     = (float)ADCvolt[0] * 6.77;	//	VB: Voltage of Brake
+        VB              = (float)ADCvolt[0] * 6.77;	//	VB: Voltage of Brake
+		Speed_receive   = (float)ADCvolt[1] * 6.77;     //get DAC value from BDU control board
+        VM              = (float)ADCvolt[3] * 6.77;	//	VM:Voltage of BUS
+        PWBUS           = (float)ADCvolt[4] * 6.77;	
+
 				float tem  = calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
         float tem2 = calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
 //        float pwm  = 3 * tem - 130;
@@ -141,7 +138,7 @@ int main()
         if (VM > 3000)
         {
             LED_OV_ON;
-            R_ON;
+            R_ON;       //使能泄放电阻
             RS = 1;
         }
         else
@@ -167,11 +164,6 @@ int main()
             STAT_OUT_ERROR;
         if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
             ADCvolt[1] = 0;
-				
-				GPIOB->BSRR = GPIO_Pin_4;
-				GPIOB->BRR = GPIO_Pin_4;
-				
-				GPIOB->ODR = 0X01;
 				
         if (test >= 1 && test <= 1500 )		//&& POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1
         {
