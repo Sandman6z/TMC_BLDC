@@ -29,7 +29,7 @@ void GPIO_Configuration(void);
 void NVIC_Configuration(void);
 void TIM_Configuration(void);
 void SetSysClockTo16(void);
-float calculate_temperature(uint32_t adc_V, float Bx);
+float Calculate_temperature(uint32_t adc_V, float Bx);
 void wdg_init(void);
 void get_speed(void);
 
@@ -54,6 +54,42 @@ void SysInit(void)
     TMC4671_DIS();
     ADC1_MODE_CONFIG();
 }
+
+/**
+ * @brief 函数来进行逆向ADC值的映射
+ * 
+ * @param adc_value 
+ *  原始数据范围：0到4095
+ *  目标范围：3000到42000
+ * @return target_value 
+ */
+int inverseMapADCValue(int adc_value) 
+{
+    // 计算逆向缩放因子：原始范围宽度 / 目标范围宽度
+    const double inverse_scale_factor = 4095.0 / (42000.0 - 3000.0);
+
+    // 计算逆向偏移值：原始范围最小值 - (目标范围最小值 * 逆向缩放因子)
+    const double inverse_offset = 0.0 - (3000.0 * inverse_scale_factor);
+
+    // 使用逆向缩放因子和逆向偏移值将ADC值映射到目标值
+    int target_value = (int)(adc_value / inverse_scale_factor + inverse_offset);
+    
+    // 确保目标值在合法范围内（3000到42000之间）
+    if (target_value < 3000) 
+    {
+        target_value = 3000;
+    } 
+    else if (target_value > 42000) 
+    {
+        target_value = 42000;
+    }
+    
+    return target_value;
+}
+
+    
+
+
 
 int main()
 {	
@@ -115,13 +151,15 @@ int main()
                 ADCValue[i] = 0;
             }
         }
-        VB              = (float)ADCvolt[0] * 6.77;	//	VB: Voltage of Brake
-		Speed_receive   = (float)ADCvolt[1] * 6.77;     //get DAC value from BDU control board
+        VB              = (float)ADCvolt[0] * 6.77;	//	VB: Voltage of Brake	
         VM              = (float)ADCvolt[3] * 6.77;	//	VM:Voltage of BUS
         PWBUS           = (float)ADCvolt[4] * 6.77;	
+        
+        int Speed_receive = (float)ADCvolt[1];     //get DAC value from BDU control board
+        int targetValue = inverseMapADCValue(Speed_receive);
 
-				float tem  = calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
-        float tem2 = calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
+		float tem  = Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
+        float tem2 = Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
 //        float pwm  = 3 * tem - 130;
 				
         if (tem < -40 || tem > 72)
@@ -385,7 +423,7 @@ void get_speed(void)
     }
 }
 
-float calculate_temperature(uint32_t adc_V, float Bx)
+float Calculate_temperature(uint32_t adc_V, float Bx)
 {
     float Rt = 0, VCC = 0, temp = 0;
     float Rp = 10000;
