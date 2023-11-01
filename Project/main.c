@@ -20,10 +20,6 @@
 #include "../User/adc.h"
 #include "../User/FAN_ctrl.h"
 
-#define MAX_SPEED       60000
-#define FAN_SPEED_MAX   20000
-#define FAN_SPEED_MIN   4000
-
 void RCC_Configuration(void);
 void GPIO_Configuration(void);
 void NVIC_Configuration(void);
@@ -36,12 +32,11 @@ void get_speed(void);
 u8 rtc_flag;
 uint8_t warkup_flag;
 __IO uint16_t ADCConvertedValue[15];
-int32_t Turbo_speed;
 uint32_t ADCValue[15] = {0, 0, 0}; // 初始化前3个元素为0
 uint32_t ADCvolt[15];
-uint32_t POWER = 0, TEMSTATUS = 0, test = 0, RS = 0, RSTATUS = 0;
+uint32_t POWER = 0, TEMSTATUS = 0, RS = 0, RSTATUS = 0;
 extern uint32_t FAN_SPEED_S, FAN_SPEED_M;
-int VM, PWBUS, VB, Speed_receive;
+int32_t VM, PWBUS, VB, targetValue;
 
 void SysInit(void)
 {
@@ -59,8 +54,8 @@ void SysInit(void)
  * @brief 函数来进行逆向ADC值的映射
  * 
  * @param adc_value 
- *  原始数据范围：0到4095
- *  目标范围：3000到42000
+ *  原始数据范围：0~4095
+ *  目标范围：		3000~42000
  * @return target_value 
  */
 int inverseMapADCValue(int adc_value) 
@@ -75,20 +70,17 @@ int inverseMapADCValue(int adc_value)
     int target_value = (int)(adc_value / inverse_scale_factor + inverse_offset);
     
     // 确保目标值在合法范围内（3000到42000之间）
-    if (target_value < 3000) 
-    {
-        target_value = 3000;
-    } 
-    else if (target_value > 42000) 
-    {
-        target_value = 42000;
-    }
+//    if (target_value < 3000) 
+//    {
+//        target_value = 3000;
+//    } 
+//    else if (target_value > 42000) 
+//    {
+//        target_value = 42000;
+//    }
     
     return target_value;
 }
-
-    
-
 
 
 int main()
@@ -155,9 +147,7 @@ int main()
         VM              = (float)ADCvolt[3] * 6.77;	//	VM:Voltage of BUS
         PWBUS           = (float)ADCvolt[4] * 6.77;	
         
-        int Speed_receive = (float)ADCvolt[1];     //get DAC value from BDU control board
-        int targetValue = inverseMapADCValue(Speed_receive);
-
+        
 		float tem  = Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
         float tem2 = Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
 //        float pwm  = 3 * tem - 130;
@@ -203,13 +193,13 @@ int main()
         if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
             ADCvolt[1] = 0;
 				
-        if (test >= 1 && test <= 1500 )		//&& POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1
+ 
+        targetValue = inverseMapADCValue(ADCvolt[1]);	//get DAC value from BDU control board
+        if (targetValue >= 3000 && targetValue <= 30000 )		//&& POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1
         {
             TMC4671_EN();
-            Turbo_speed = -(test * MAX_SPEED / 3000);
-            tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);
-            // Rotate right
-            tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, Turbo_speed);
+            tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);	            // Rotate right
+            tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, targetValue);
             ADC_flag = 1;
         }
         else
@@ -217,8 +207,7 @@ int main()
             if (ADC_flag)
             {
                 ADC_flag = 0;
-                tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);
-                // Rotate right
+                tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);	            // Rotate right
                 tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, 0);
                 TMC4671_DIS();
             }
