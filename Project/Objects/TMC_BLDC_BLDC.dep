@@ -8,7 +8,7 @@ I (C:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (..\Libraries\CMSIS\system_stm32f10x.h)(0x652F4B70)
 F (..\Libraries\CMSIS\CoreSupport\core_cm3.c)(0x652F4B70)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\Libraries\CMSIS -I ..\Libraries\CMSIS\CoreSupport -I ..\Project -I ..\User-I.\RTE\_BLDC-IC:\Users\Bitch\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Bitch\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\core_cm3.o --omf_browse .\objects\core_cm3.crf --depend .\objects\core_cm3.d)
 I (C:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
-F (.\main.c)(0x6541FBD4)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\Libraries\CMSIS -I ..\Libraries\CMSIS\CoreSupport -I ..\Project -I ..\User-I.\RTE\_BLDC-IC:\Users\Bitch\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Bitch\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x65420400)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\Libraries\CMSIS -I ..\Libraries\CMSIS\CoreSupport -I ..\Project -I ..\User-I.\RTE\_BLDC-IC:\Users\Bitch\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Bitch\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Program Files\Keil_v5\ARM\ARMCC\include\math.h)(0x60252378)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x.h)(0x652F4B70)
 I (..\Libraries\CMSIS\CoreSupport\core_cm3.h)(0x652F4B70)
@@ -171,7 +171,7 @@ I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x652F4B70)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x652F4B70)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x652F4B70)
 I (..\User\Global.h)(0x652F4B70)
-F (..\User\gpio.c)(0x6540C54C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\Libraries\CMSIS -I ..\Libraries\CMSIS\CoreSupport -I ..\Project -I ..\User-I.\RTE\_BLDC-IC:\Users\Bitch\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Bitch\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\gpio.o --omf_browse .\objects\gpio.crf --depend .\objects\gpio.d)
+F (..\User\gpio.c)(0x654203D0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\Libraries\CMSIS -I ..\Libraries\CMSIS\CoreSupport -I ..\Project -I ..\User-I.\RTE\_BLDC-IC:\Users\Bitch\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Bitch\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\gpio.o --omf_browse .\objects\gpio.crf --depend .\objects\gpio.d)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x.h)(0x652F4B70)
 I (..\Libraries\CMSIS\CoreSupport\core_cm3.h)(0x652F4B70)
 I (C:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)

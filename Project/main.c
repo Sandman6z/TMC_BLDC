@@ -70,14 +70,14 @@ int inverseMapADCValue(int adc_value)
     int target_value = (int)(adc_value / inverse_scale_factor + inverse_offset);
     
     // 确保目标值在合法范围内（3000到42000之间）
-//    if (target_value < 3000) 
-//    {
-//        target_value = 3000;
-//    } 
-//    else if (target_value > 42000) 
-//    {
-//        target_value = 42000;
-//    }
+    if (target_value < 3000) 
+    {
+        target_value = 3000;
+    } 
+    else if (target_value > 42000) 
+    {
+        target_value = 42000;
+    }
     
     return target_value;
 }
