@@ -12,8 +12,8 @@
 
 ---
 
-## 2023.09.01 [^1]
-[^1]:STM32F103_BLDC_瑞士涡轮-增加过欠压保护-适配v2.00电路板+风扇 -调试最大转速
+## 2023.09.01
+	STM32F103_BLDC_瑞士涡轮-增加过欠压保护-适配v2.00电路板+风扇 -调试最大转速
 
 ## 2023.09.19
 ```	
@@ -22,7 +22,8 @@
 	I_SUM_ADC	PC5(IN15) -> PA3(IN3)
 ```
 ```
-ONLY CHANGE NAME:
+ONLY CHANGE NAME: [^1]
+[^1]:these ports only change name.
 	PB0	PWBUS_ADC	-> I_SET
 	PB4	BRAKE 		-> BRAKE_EN
 	PB7	STAT_OUT 	-> READY

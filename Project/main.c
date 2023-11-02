@@ -137,9 +137,10 @@ int main()
             ADC_count = 0;
             for (int i = 0; i < 6; i++)
             {
-                ADCvolt[i]  = ADCValue[i] / 4;
-                ADCvolt[i]  = ADCvolt[i] * 3300;
-                ADCvolt[i]  = ADCvolt[i] >> 12;
+                // ADCvolt[i]  = ADCValue[i] / 4;
+                // ADCvolt[i]  = ADCvolt[i] * 3300;
+                // ADCvolt[i]  = ADCvolt[i] >> 12;
+                ADCVolt[i] = (ADCValue[i] * 825) >> 12;
                 ADCValue[i] = 0;
             }
         }
@@ -194,7 +195,7 @@ int main()
             ADCvolt[1] = 0;
 				
  
-        targetValue = inverseMapADCValue(ADCvolt[1]);	//get DAC value from BDU control board
+        targetValue = inverseMapADCValue(ADCvol                             t[1]);	//get DAC value from BDU control board
         if (targetValue >= 3000 && targetValue <= 30000 )		//&& POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1
         {
             TMC4671_EN();
