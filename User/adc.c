@@ -49,7 +49,7 @@ void ADC1_MODE_CONFIG(void)
      * ADC_Channel_3    I_SUM_ADC
      * ADC_Channel_4    VM_ADC
      * ADC_Channel_5    TUR_T_ADC
-     * ADC_Channel_8    
+     * ADC_Channel_8        
      * ADC_Channel_17   内部通道
      */
     ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_71Cycles5);	

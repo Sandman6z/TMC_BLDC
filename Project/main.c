@@ -144,7 +144,7 @@ int main()
             }
         }
         VB              = (float)ADCvolt[0] * 6.77;	//	VB: Voltage of Brake	
-        VM              = (float)ADCvolt[3] * 6.77;	//	VM:Voltage of BUS
+        VM              = (float)ADCvolt[0] * 6.77;	//	VM:Voltage of BUS
         PWBUS           = (float)ADCvolt[4] * 6.77;	
         
         
@@ -194,7 +194,7 @@ int main()
             ADCvolt[1] = 0;
 				
  
-        targetValue = inverseMapADCValue(ADCvolt[1]);	//get DAC value from BDU control board
+//        targetValue = inverseMapADCValue(ADCvolt[1]);	//get DAC value from BDU control board
         if (targetValue >= 3000 && targetValue <= 30000 )		//&& POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1
         {
             TMC4671_EN();
