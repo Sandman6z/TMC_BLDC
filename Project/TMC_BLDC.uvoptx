@@ -120,7 +120,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name></Name>
+          <Name>d</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -158,47 +158,42 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>PWBUS,0x0A</ItemText>
+          <ItemText>ADCvolt[0],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ADCvolt[0],0x0A</ItemText>
+          <ItemText>ADCvolt[1],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ADCvolt[1],0x0A</ItemText>
+          <ItemText>ADCvolt[2],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ADCvolt[2],0x0A</ItemText>
+          <ItemText>ADCvolt[3],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ADCvolt[3],0x0A</ItemText>
+          <ItemText>ADCvolt[4],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ADCvolt[4],0x0A</ItemText>
+          <ItemText>targetValue,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>targetValue,0x0A</ItemText>
+          <ItemText>POWER,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>VM,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>8</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>VB,0x0A</ItemText>
+          <ItemText>Voltage_BUS,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>

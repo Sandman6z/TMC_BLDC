@@ -34,8 +34,7 @@ extern unsigned char nRF_Sec;
 extern unsigned char timeout_18B20;
 extern unsigned char LED_stat;
 
-extern u8 rtc_flag;
-extern uint8_t warkup_flag;
+extern uint8_t rtc_flag, warkup_flag;
 extern u8 driver_trans;
 extern u16 step;
 extern u8 motor_flag;
@@ -53,5 +52,6 @@ void RCC_Configuration(void);
 void TIM_Configuration(void);
 void Delay(u32 nCount);
 void initBase(void);
+
 
 #endif /*__GLOBAL_H__*/

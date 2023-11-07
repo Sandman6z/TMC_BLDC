@@ -59,6 +59,9 @@
   "files.associations": {
     "gpio.h": "c",
     "cmath": "c",
-    "adc.h": "c"
+    "adc.h": "c",
+    "stm32f10x.h": "c",
+    "tmc4671.h": "c",
+    "fan_ctrl.h": "c"
   }
 }
