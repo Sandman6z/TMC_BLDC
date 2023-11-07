@@ -55,3 +55,22 @@ I_SUM_ADC	 |	PA3
 VM_ADC		 |	PA4
 TUR_T_ADC	 |	PA5
 
+## 2023.11.07
+	FINISH ALL BASIC FUNCTION!!! :)
+
+`ADC <-> DAC 映射算法说明:`
+ *  函数来进行逆向ADC值的映射
+ *  原始数据范围：0~4095
+ *  目标范围：3000~42000
+
+`计算逆向缩放因子：原始范围宽度 / 目标范围宽度:`
+
+	inverse_scale_factor = 4095.0 / (42000.0 - 3000.0);
+
+`计算逆向偏移值：原始范围最小值 - (目标范围最小值 * 逆向缩放因子):`
+
+    inverse_offset = 0.0 - (3000.0 * inverse_scale_factor);
+
+`使用逆向缩放因子和逆向偏移值将ADC值映射到目标值:`
+
+    target_value = (int)(adc_value / inverse_scale_factor + inverse_offset);
