@@ -39,7 +39,6 @@ unsigned char nRF_Sec;
 unsigned int FAN_SPEED_S, FAN_SPEED_M;
 unsigned int FAN_COUNT;
 u8 DMA_flag = 0;
-u8 motor_flag, Beep_count;
 u8 nRec1, R_Data1, Rx_Buf1[15], RI1_flag;
 u8 nRec2, R_Data2, Rx_Buf2[15], RI2_flag;
 u8 Tx_Buf2[30];

@@ -2,6 +2,7 @@
 #include "./main.h"
 #include "../User/bsp_adc.h"
 #include "../User/bsp_gpio.h"
+#include "../User/bsp_led.h"
 #include "../User/bsp_uart.h"
 #include "../User/bsp_uart_process.h"
 
@@ -59,6 +60,7 @@ void SysInit(void)
     RCC_Configuration();  // System Clocks Configuration
     NVIC_Configuration(); // �ж� NVIC configuration
     GPIO_Configuration(); // Configure the GPIO ports
+    LED_Configuration();
     TIM_Configuration();
     InitUsart2();
     TMC4671_DIS();
@@ -96,9 +98,9 @@ void Overvoltage_oprate(void)
         RS = 0;
     }
     if (RS == 0 && Voltage_BUS < 100)
-        RSTATUS = 0;
+        Res_STATUS = 0;
     else
-        RSTATUS = 1;
+        Res_STATUS = 1;
 }
 
 /**

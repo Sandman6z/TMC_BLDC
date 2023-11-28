@@ -24,10 +24,24 @@ uint8_t rtc_flag, warkup_flag;
 __IO uint16_t ADCConvertedValue[15];
 uint32_t ADCValue[15] = {0, 0, 0};                      // 初始化前3个元素为0
 uint32_t ADCvolt[15];
-uint32_t POWER = 0, TEMSTATUS = 0, RS = 0, RSTATUS = 0;
+/**
+The table below gives the meaning of these variable: POWER, TEMSTATUS, RS variable by each 
+  =======================================================+
+     VALUE     |          0          |         1         |
+  =======================================================+
+     POWER     |        FAULT        |      NORMAL       |
+  -------------------------------------------------------+
+   TEMSTATUS   |  MOS_Temp OVERHEAT  |  MOS_Temp NORMAL  |
+  -------------------------------------------------------+
+       RS      |       NORMAL        |   Overvoltaging   |
+  -------------------------------------------------------+
+   Res_STATUS  |    Break circuit    |      NORMAL       |
+  =======================================================+
+*/
+uint32_t POWER = 0, TEMSTATUS = 0, RS = 0, Res_STATUS = 0; 
+
 int32_t Voltage_BUS, targetValue;
 float tem = 0.0f, tem2 = 0.0f;
-
 
 int main()
 {
@@ -78,20 +92,18 @@ int main()
         }
 
 //      Voltage_BUS	= (float)ADCvolt[0] * 6.77;                                     //Voltage_BUS:Voltage of BUS
-        tem		= Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
-        tem2 	= Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
+        tem     = Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
+        tem2    = Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
         //float pwm  = 3 * tem - 130;
-
         MOS_TempCheck();
         PowerCheck();
         Overvoltage_oprate();
         WorkStateIndicate();
-
         if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
             ADCvolt[1] = 0;
 
 //        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32));        //get DAC value from BDU control board
-        if (targetValue >= 3000 && targetValue <= 45000 )                       //&& POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1
+        if (targetValue >= 3000 && targetValue <= 45000 )                       //&& POWER == 1 && TEMSTATUS == 1 && Res_STATUS == 1
         {
             TMC4671_EN();
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right

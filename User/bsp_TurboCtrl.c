@@ -24,6 +24,3 @@ void TurboCtrl(void)
     else
         TMC4671_DIS();
 }
-
-
-
