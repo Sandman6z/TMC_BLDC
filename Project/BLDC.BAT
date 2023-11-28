@@ -1,4 +1,4 @@
-SET PATH=C:\Program Files\Keil_v5\ARM\ARMCC\Bin;C:\Program Files\Python311\Scripts\;C:\Program Files\Python311\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Users\Bitch\AppData\Local\Microsoft\WindowsApps;
+SET PATH=C:\Program Files\Keil_v5\ARM\ARMCC\Bin;C:\Program Files\Python311\Scripts\;C:\Program Files\Python311\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Git\cmd;C:\Users\Bitch\AppData\Local\Microsoft\WindowsApps;
 SET CPU_TYPE=STM32F103CB
 SET CPU_VENDOR=STMicroelectronics
 SET UV2_TARGET=BLDC
@@ -8,12 +8,15 @@ SET CPU_CLOCK=0x00B71B00
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\core_cm3.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\main.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_it.__i"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\tmc4671.__i"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\uart.__i"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\uart_process.__i"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\gpio.__i"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\adc.__i"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\led.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_adc.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_gpio.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_iic_fmeep.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_led.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_tmc4671.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_uart.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_uart_process.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_monitor.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_turboctrl.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\misc.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_adc.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_bkp.__i"

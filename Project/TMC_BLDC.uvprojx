@@ -134,7 +134,7 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4100</DriverSelection>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
@@ -420,34 +420,49 @@
               <FilePath>.\stm32f10x_it.c</FilePath>
             </File>
             <File>
-              <FileName>TMC4671.c</FileName>
+              <FileName>bsp_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\TMC4671.c</FilePath>
+              <FilePath>..\User\bsp_adc.c</FilePath>
             </File>
             <File>
-              <FileName>Uart.c</FileName>
+              <FileName>bsp_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\Uart.c</FilePath>
+              <FilePath>..\User\bsp_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>uart_process.c</FileName>
+              <FileName>bsp_IIC_FMEEP.C</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\uart_process.c</FilePath>
+              <FilePath>..\User\bsp_IIC_FMEEP.C</FilePath>
             </File>
             <File>
-              <FileName>gpio.c</FileName>
+              <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\gpio.c</FilePath>
+              <FilePath>..\User\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>adc.c</FileName>
+              <FileName>bsp_TMC4671.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\adc.c</FilePath>
+              <FilePath>..\User\bsp_TMC4671.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
+              <FileName>bsp_Uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\led.c</FilePath>
+              <FilePath>..\User\bsp_Uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_uart_process.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\bsp_uart_process.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_monitor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\bsp_monitor.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_TurboCtrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\bsp_TurboCtrl.c</FilePath>
             </File>
           </Files>
         </Group>

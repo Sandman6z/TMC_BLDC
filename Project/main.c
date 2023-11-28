@@ -1,55 +1,37 @@
 /**
  * @file main.c
- * @author Sandman Zhang (zxxx@aeonmed.com)
+ * @author Sandman (zxxx@aeonmed.com)
  * @brief 
  * @version 0.1
  * @date 2023-10-11
  * 
  * @copyright Copyright (c) 2023
- * 
  */
 
 #include <math.h>
+#include "./main.h"
 #include "stm32f10x.h"
 #include "stm32f10x_it.h"
-#include "../User/Global.h"
-#include "../User/uart.h"
-#include "../User/uart_process.h"
-#include "../User/gpio.h"
-#include "../User/TMC4671.h"
-#include "../User/adc.h"
-#include "../User/FAN_ctrl.h"
-
+#include "../User/bsp_adc.h"
+#include "../User/bsp_gpio.h"
+#include "../User/bsp_led.h"
+#include "../User/bsp_TMC4671.h"
+#include "../User/bsp_TurboCtrl.h"
+#include "../User/bsp_uart.h"
+#include "../User/bsp_uart_process.h"
 
 uint8_t rtc_flag, warkup_flag;
 __IO uint16_t ADCConvertedValue[15];
-uint32_t ADCValue[15] = {0, 0, 0}; // 初始化前3个元素为0
+uint32_t ADCValue[15] = {0, 0, 0};                      // 初始化前3个元素为0
 uint32_t ADCvolt[15];
 uint32_t POWER = 0, TEMSTATUS = 0, RS = 0, RSTATUS = 0;
-extern uint32_t FAN_SPEED_S, FAN_SPEED_M;
 int32_t Voltage_BUS, targetValue;
-float tem, tem2;
-
-void RCC_Configuration(void);
-void NVIC_Configuration(void);
-void TIM_Configuration(void);
-void SetSysClockTo16(void);
-void GPIO_Configuration(void);
-void wdg_init(void);
-void get_speed(void);
-float Calculate_temperature(uint32_t adc_V, float Bx);
-void SysInit(void);
-void MOS_TempCheck(void);
-void PowerCheck(void);
-void Overvoltage_oprate(void);
-int inverseMapADCValue(int adc_value);
-
-
+float tem = 0.0f, tem2 = 0.0f;
 
 
 int main()
-{	
-    uint16_t ADC_count = 0, ADC_flag;
+{
+    uint16_t ADC_count = 0, ADC_flag = 0;
 
     SysInit();
     __set_PRIMASK(0);
@@ -57,31 +39,19 @@ int main()
     timeout = 100;
     while (timeout)
     {
-        clrwdt();
+        ClearWDG();
     }
     init_TMC4671();
-    tmc4671_writeInt(0, 1, 0);
-    if (tmc4671_readInt(1, 0, 0) == 0x34363731)
-    {
-        tmc4671_init_set();
-        timeout = 100;
-        while (timeout)
-        {
-            clrwdt();
-        }
-        TMC4671_EN();
-    }
-    else
-        TMC4671_DIS();
+    TurboCtrl();
 
     timeout = 100;
     while (timeout)
     {
-        clrwdt();
+        ClearWDG();
     }
     while (1)
     {
-        clrwdt();
+        ClearWDG();
         if (ADC_count < 4)
         {
             ADC_count++;
@@ -92,7 +62,7 @@ int main()
             int t = 10;
             while (t--)
             {
-                clrwdt();
+                ClearWDG();
             }
         }
         if (ADC_count >= 4)
@@ -107,27 +77,24 @@ int main()
             }
         }
 
-				Voltage_BUS	= (float)ADCvolt[0] * 6.77;					//	Voltage_BUS:Voltage of BUS
-				float tem		= Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
-				float tem2 	= Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
-				//float pwm  = 3 * tem - 130;
+//      Voltage_BUS	= (float)ADCvolt[0] * 6.77;                                     //Voltage_BUS:Voltage of BUS
+        tem		= Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
+        tem2 	= Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
+        //float pwm  = 3 * tem - 130;
 
         MOS_TempCheck();
         PowerCheck();
         Overvoltage_oprate();
+        WorkStateIndicate();
 
-        if (POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)
-            STAT_OUT_NORMAL;
-        else
-            STAT_OUT_ERROR;
         if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
             ADCvolt[1] = 0;
-				
-        targetValue = inverseMapADCValue(ADCvolt[1]);												//get DAC value from BDU control board
-        if (targetValue >= 3000 && targetValue <= 30000 && POWER == 1) 		//&& TEMSTATUS == 1 && RSTATUS == 1
+
+//        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32));        //get DAC value from BDU control board
+        if (targetValue >= 3000 && targetValue <= 45000 )                       //&& POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1
         {
             TMC4671_EN();
-            tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);	            // Rotate right
+            tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right
             tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, targetValue);
             ADC_flag = 1;
         }
@@ -136,7 +103,7 @@ int main()
             if (ADC_flag)
             {
                 ADC_flag = 0;
-                tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);	            // Rotate right
+                tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002); // Rotate right
                 tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, 0);
                 TMC4671_DIS();
             }
@@ -306,131 +273,4 @@ void SetSysClockTo16(void)
             ;
         }
     }
-}
-
-void wdg_init(void)
-{
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_WWDG, ENABLE);
-    WWDG_SetPrescaler(WWDG_Prescaler_8);
-    WWDG_SetWindowValue(0x7f);
-    WWDG_SetCounter(0x7f);
-    WWDG_Enable(0x7f);
-}
-
-void get_speed(void)
-{
-    uint32_t temp;
-    if (RI2_flag)
-    {
-        temp =        ((uint32_t)Rx_Buf2[3] - 0x30) * 10000;
-        temp = temp + ((uint32_t)Rx_Buf2[4] - 0x30) * 1000;
-        temp = temp + ((uint32_t)Rx_Buf2[5] - 0x30) * 100;
-        temp = temp + ((uint32_t)Rx_Buf2[6] - 0x30) * 10;
-        temp = temp + ((uint32_t)Rx_Buf2[7] - 0x30);
-        RI2_flag = 0;
-        Rx_Buf2[9] = '\0';
-
-        usart2_send('S');
-        usart2_send('E');
-        usart2_send('=');
-        for (int i = 3; i <= 7; i++)
-        {
-            usart2_send(Rx_Buf2[i]);
-        }
-        usart2_send(',');
-    }
-}
-
-float Calculate_temperature(uint32_t adc_V, float Bx)
-{
-    float Rt = 0, VCC = 0, temp = 0;
-    float Rp = 10000;
-    float Ka = 273.15;
-    float T2 = Ka + 25;
-
-    VCC = (4096 * 1200) / ADCConvertedValue[5];
-    Rt = (Rp * adc_V) / (VCC - adc_V);
-    temp = 1.0f / ((1.0f / T2) + (log(Rt / Rp) / Bx)) - Ka + 0.5f;
-
-    return temp;
-}
-
-void SysInit(void)
-{
-    SetSysClockTo16();
-    RCC_Configuration();  // System Clocks Configuration
-    NVIC_Configuration(); // �ж� NVIC configuration
-    GPIO_Configuration(); // Configure the GPIO ports
-    TIM_Configuration();
-    InitUsart2();
-    TMC4671_DIS();
-    ADC1_MODE_CONFIG();
-}
-
-void MOS_TempCheck(void)
-{
-    if (tem < -40 || tem > 72)
-        TEMSTATUS = 0;              // backup error
-    else
-        TEMSTATUS = 1;
-}
-
-void PowerCheck(void)
-{
-    if (Voltage_BUS > 1800 && Voltage_BUS < 2800)
-        POWER = 1;
-    else
-        POWER = 0;
-}
-
-void Overvoltage_oprate(void)
-{
-    if (Voltage_BUS > 2800)
-    {
-        LED_OV_ON;
-        R_ON;       //使能泄放电阻
-        RS = 1;
-    }
-    else
-    {
-        LED_OV_OFF;
-        R_OFF;
-        RS = 0;
-    }
-    if (RS == 0 && Voltage_BUS < 100)
-        RSTATUS = 0;
-    else
-        RSTATUS = 1;
-}
-
-/**
- * @brief 函数来进行逆向ADC值的映射
- * 
- * @param adc_value 
- *  原始数据范围：0~4095
- *  目标范围：		3000~42000
- * @return target_value 
- */
-int inverseMapADCValue(int adc_value) 
-{
-    // 计算逆向缩放因子：原始范围宽度 / 目标范围宽度
-    const double inverse_scale_factor = 4095.0 / (42000.0 - 3000.0);
-
-    // 计算逆向偏移值：原始范围最小值 - (目标范围最小值 * 逆向缩放因子)
-    const double inverse_offset = 0.0 - (3000.0 * inverse_scale_factor);
-
-    // 使用逆向缩放因子和逆向偏移值将ADC值映射到目标值
-    int target_value = (int)(adc_value / inverse_scale_factor + inverse_offset);
-    
-    // 确保目标值在合法范围内（3000到42000之间）
-    if (target_value < 3000) 
-    {
-        target_value = 3000;
-    } 
-    else if (target_value > 42000) 
-    {
-        target_value = 42000;
-    }
-    
-    return target_value;
 }

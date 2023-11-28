@@ -1,0 +1,6 @@
+--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\Libraries\CMSIS -I ..\Libraries\CMSIS\CoreSupport -I ..\Project -I ..\User
+-I.\RTE\_BLDC
+-IC:\Users\Bitch\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+-IC:\Users\Bitch\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include
+-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_
+-o .\objects\tmc4671.o --omf_browse .\objects\tmc4671.crf --depend .\objects\tmc4671.d "..\User\TMC4671.c"
