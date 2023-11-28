@@ -102,8 +102,8 @@ int main()
         if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
             ADCvolt[1] = 0;
 
-//        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32));        //get DAC value from BDU control board
-        if (targetValue >= 3000 && targetValue <= 45000 )                       //&& POWER == 1 && TEMSTATUS == 1 && Res_STATUS == 1
+        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32 * 2));        //get DAC value from BDU control board
+        if (targetValue >= 3000 && targetValue <= 60000 )                       //&& POWER == 1 && TEMSTATUS == 1 && Res_STATUS == 1
         {
             TMC4671_EN();
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right
