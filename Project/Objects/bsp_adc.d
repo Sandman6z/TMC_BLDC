@@ -1,5 +1,4 @@
 .\objects\bsp_adc.o: ..\User\bsp_adc.c
-.\objects\bsp_adc.o: ..\User\bsp_adc.h
 .\objects\bsp_adc.o: ..\Project\./main.h
 .\objects\bsp_adc.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x.h
 .\objects\bsp_adc.o: ..\Libraries\CMSIS\CoreSupport\core_cm3.h
@@ -30,4 +29,5 @@
 .\objects\bsp_adc.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\objects\bsp_adc.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\bsp_adc.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\objects\bsp_adc.o: ..\User\bsp_TMC4671.h
+.\objects\bsp_adc.o: ..\Project\./../User/bsp_adc.h
+.\objects\bsp_adc.o: ..\User\../User/bsp_TMC4671.h

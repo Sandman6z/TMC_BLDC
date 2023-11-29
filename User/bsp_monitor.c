@@ -85,7 +85,7 @@ void PowerCheck(void)
 
 void Overvoltage_oprate(void)
 {
-    if (Voltage_BUS > 2800)
+    if (Voltage_BUS > 3200) //2800
     {
         LED_OV_ON;
         R_ON;       //使能泄放电阻
@@ -114,7 +114,7 @@ void Overvoltage_oprate(void)
 int inverseMapADCValue(uint16_t adc_value) 
 {
     // 计算逆向缩放因子：原始范围宽度 / 目标范围宽度
-    const double inverse_scale_factor = 4095.0 / 42000.0;
+    const double inverse_scale_factor = 4095.0 / Turbo_MAXspeed;
 
     // 计算逆向偏移值：原始范围最小值 - (目标范围最小值 * 逆向缩放因子)
     //const double inverse_offset = 0.0 - (3000.0 * inverse_scale_factor);
@@ -123,13 +123,13 @@ int inverseMapADCValue(uint16_t adc_value)
     uint16_t target_value = (adc_value / inverse_scale_factor);// + inverse_offset);
     
     // 确保目标值在合法范围内（3000到42000之间）
-    if (target_value < 3000) 
+    if (target_value < Turbo_Minspeed) 
     {
-        target_value = 3000;
+        target_value = Turbo_Minspeed;
     } 
-    else if (target_value > 42000) 
+    else if (target_value > Turbo_MAXspeed) 
     {
-        target_value = 42000;
+        target_value = Turbo_MAXspeed;
     }
     
     return target_value;

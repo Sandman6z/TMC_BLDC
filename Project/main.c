@@ -20,10 +20,10 @@
 #include "../User/bsp_uart.h"
 #include "../User/bsp_uart_process.h"
 
-uint8_t rtc_flag, warkup_flag;
-__IO uint16_t ADCConvertedValue[15];
-uint32_t ADCValue[15] = {0, 0, 0};                      // 初始化前3个元素为0
-uint32_t ADCvolt[15];
+
+uint8_t rtc_flag = 0, warkup_flag = 0;
+__IO uint16_t ADCConvertedValue[ADC1_CH_NUM] = {0};
+uint32_t ADCValue[ADC1_CH_NUM] = {0}, ADCvolt[ADC1_CH_NUM] = {0};
 /**
 The table below gives the meaning of these variable: POWER, TEMSTATUS, RS variable by each 
   =======================================================+
@@ -40,7 +40,7 @@ The table below gives the meaning of these variable: POWER, TEMSTATUS, RS variab
 */
 uint32_t POWER = 0, TEMSTATUS = 0, RS = 0, Res_STATUS = 0; 
 
-int32_t Voltage_BUS, targetValue;
+int32_t Voltage_BUS =0, targetValue = 0;
 float tem = 0.0f, tem2 = 0.0f;
 
 int main()
@@ -69,7 +69,7 @@ int main()
         if (ADC_count < 4)
         {
             ADC_count++;
-            for (int i = 0; i < 6; i++) 
+            for (int i = 0; i <= ADC1_CH_NUM; i++) 
             {
                 ADCValue[i] += ADCConvertedValue[i];
             }
@@ -82,31 +82,30 @@ int main()
         if (ADC_count >= 4)
         {
             ADC_count = 0;
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i <= ADC1_CH_NUM; i++)
             {
-                ADCvolt[i]  = ADCValue[i] / 4;
+                ADCvolt[i]  = ADCValue[i] / 4;      //calculate last 4 times average value
                 ADCvolt[i]  = ADCvolt[i] * 3300;
                 ADCvolt[i]  = ADCvolt[i] >> 12;
                 ADCValue[i] = 0;
             }
         }
 
-//      Voltage_BUS	= (float)ADCvolt[0] * 6.77;                                     //Voltage_BUS:Voltage of BUS
+        Voltage_BUS = (float)ADCvolt[0] * 6.77;                                         //Voltage_BUS: Voltage of Power
         tem     = Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
         tem2    = Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
-        //float pwm  = 3 * tem - 130;
         MOS_TempCheck();
         PowerCheck();
         Overvoltage_oprate();
         WorkStateIndicate();
-        if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
-            ADCvolt[1] = 0;
-
-        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32 * 2));        //get DAC value from BDU control board
-        if (targetValue >= 3000 && targetValue <= 60000 )                       //&& POWER == 1 && TEMSTATUS == 1 && Res_STATUS == 1
+        DISABLE_TMC();
+        
+//        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32));                  //get DAC value from BDU control board
+                
+        if (targetValue >= Turbo_Minspeed && targetValue <= Turbo_MAXspeed && TEMSTATUS == 1 && Res_STATUS == 1)             // && POWER == 1 
         {
             TMC4671_EN();
-            tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right
+            tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);             // Rotate right
             tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, targetValue);
             ADC_flag = 1;
         }
@@ -115,7 +114,7 @@ int main()
             if (ADC_flag)
             {
                 ADC_flag = 0;
-                tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002); // Rotate right
+                tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);         // Rotate right
                 tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, 0);
                 TMC4671_DIS();
             }
