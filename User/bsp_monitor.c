@@ -85,7 +85,7 @@ void PowerCheck(void)
 
 void Overvoltage_oprate(void)
 {
-    if (Voltage_BUS > 3200) //2800
+    if (Voltage_BUS > 2800)
     {
         LED_OV_ON;
         R_ON;       //使能泄放电阻
@@ -97,6 +97,10 @@ void Overvoltage_oprate(void)
         R_OFF;
         RS = 0;
     }
+}
+
+void ResExistDetect(void)
+{
     if (RS == 0 && Voltage_BUS < 100)
         Res_STATUS = 0;
     else

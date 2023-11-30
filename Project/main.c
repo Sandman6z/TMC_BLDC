@@ -22,8 +22,8 @@
 
 
 uint8_t rtc_flag = 0, warkup_flag = 0;
-__IO uint16_t ADCConvertedValue[ADC1_CH_NUM] = {0};
-uint32_t ADCValue[ADC1_CH_NUM] = {0}, ADCvolt[ADC1_CH_NUM] = {0};
+__IO uint16_t ADCConvertedValue[15] = {0};
+uint32_t ADCValue[15] = {0}, ADCvolt[15] = {0};
 /**
 The table below gives the meaning of these variable: POWER, TEMSTATUS, RS variable by each 
   =======================================================+
@@ -92,17 +92,18 @@ int main()
         }
 
         Voltage_BUS = (float)ADCvolt[0] * 6.77;                                         //Voltage_BUS: Voltage of Power
-        tem     = Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
-        tem2    = Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
+        tem         = Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
+        tem2        = Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
         MOS_TempCheck();
         PowerCheck();
         Overvoltage_oprate();
+        ResExistDetect();
         WorkStateIndicate();
         DISABLE_TMC();
         
-//        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32));                  //get DAC value from BDU control board
+        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32));                  //get DAC value from BDU control board
                 
-        if (targetValue >= Turbo_Minspeed && targetValue <= Turbo_MAXspeed && TEMSTATUS == 1 && Res_STATUS == 1)             // && POWER == 1 
+        if (targetValue >= Turbo_Minspeed && targetValue <= Turbo_MAXspeed && POWER == 1 && TEMSTATUS == 1 && Res_STATUS == 1)
         {
             TMC4671_EN();
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);             // Rotate right

@@ -65,6 +65,7 @@ void SysInit(void);
 void MOS_TempCheck(void);
 void PowerCheck(void);
 void Overvoltage_oprate(void);
+void ResExistDetect(void);
 int inverseMapADCValue(uint16_t adc_value);
 
 
