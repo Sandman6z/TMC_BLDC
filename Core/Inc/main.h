@@ -2,7 +2,7 @@
 #define __MAIN_H__
 
 #include "stm32f10x.h"
-#include "../User/bsp_adc.h"
+#include "../../User/bsp_adc.h"
 
 #define BEEP_TIME 2
 

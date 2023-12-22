@@ -1,6 +1,6 @@
-.\objects\main.o: main.c
+.\objects\main.o: ..\Core\Src\main.c
 .\objects\main.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\objects\main.o: ./main.h
+.\objects\main.o: ..\Core\Src\../Inc/main.h
 .\objects\main.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x.h
 .\objects\main.o: ..\Libraries\CMSIS\CoreSupport\core_cm3.h
 .\objects\main.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -30,11 +30,11 @@
 .\objects\main.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\objects\main.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\main.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\objects\main.o: ./../User/bsp_adc.h
-.\objects\main.o: stm32f10x_it.h
-.\objects\main.o: ../User/bsp_gpio.h
-.\objects\main.o: ../User/bsp_led.h
-.\objects\main.o: ../User/bsp_TMC4671.h
-.\objects\main.o: ../User/bsp_TurboCtrl.h
-.\objects\main.o: ../User/bsp_uart.h
-.\objects\main.o: ../User/bsp_uart_process.h
+.\objects\main.o: ..\Core\Src\../Inc/../../User/bsp_adc.h
+.\objects\main.o: ..\Core\Inc\stm32f10x_it.h
+.\objects\main.o: ..\Core\Src\../../User/bsp_gpio.h
+.\objects\main.o: ..\Core\Src\../../User/bsp_led.h
+.\objects\main.o: ..\Core\Src\../../User/bsp_TMC4671.h
+.\objects\main.o: ..\Core\Src\../../User/bsp_TurboCtrl.h
+.\objects\main.o: ..\Core\Src\../../User/bsp_uart.h
+.\objects\main.o: ..\Core\Src\../../User/bsp_uart_process.h

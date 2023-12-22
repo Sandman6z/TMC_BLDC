@@ -23,8 +23,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
-#include "./main.h"
-#include "bsp_uart_process.h"
+#include "../Inc/main.h"
+#include "../../User/bsp_uart_process.h"
 
 #define TIMEcycle 50       // 1 seconds per cycle
 #define TIME_MS_CYCLE 2    // ÿ1ms

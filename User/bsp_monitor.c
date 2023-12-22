@@ -1,5 +1,5 @@
 #include <math.h>
-#include "./main.h"
+#include "../Core/Inc/main.h"
 #include "../User/bsp_adc.h"
 #include "../User/bsp_gpio.h"
 #include "../User/bsp_uart.h"

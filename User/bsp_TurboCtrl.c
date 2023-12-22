@@ -1,5 +1,5 @@
 #include "stm32f10x.h"                  // Device header
-#include "./main.h"
+#include "../Core/Inc/main.h"
 #include "../User/bsp_gpio.h"
 #include "../User/bsp_led.h"
 #include "../User/bsp_TMC4671.h"

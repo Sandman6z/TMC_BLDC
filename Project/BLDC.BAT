@@ -1,13 +1,11 @@
-SET PATH=C:\Program Files\Keil_v5\ARM\ARMCC\Bin;C:\Program Files\Python311\Scripts\;C:\Program Files\Python311\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Git\cmd;C:\Users\Bitch\AppData\Local\Microsoft\WindowsApps;
+SET PATH=C:\Program Files\Keil_v5\ARM\ARMCC\Bin;C:\Program Files\Python311\Scripts\;C:\Program Files\Python311\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Git\cmd;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\;C:\Program Files\IVI Foundation\VISA\Win64\Bin\;C:\Program Files\Keysight\IO Libraries Suite\bin;C:\Program Files\IVI Foundation\VISA\Win64\ktvisa;C:\Program Files (x86)\Keysight\IO Libraries Suite\bin;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\ktvisa;C:\Program Files (x86)\IVI Foundation\IVI\bin;C:\Program Files\IVI Foundation\IVI\bin;C:\Program Files (x86)\IVI Foundation\VISA\winnt\agvisa;C:\Users\Bitch\AppData\Local\Microsoft\WindowsApps;
 SET CPU_TYPE=STM32F103CB
 SET CPU_VENDOR=STMicroelectronics
 SET UV2_TARGET=BLDC
 SET CPU_CLOCK=0x00B71B00
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmAsm" --Via ".\objects\startup_stm32f10x_md._ia"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\system_stm32f10x.__i"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\core_cm3.__i"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\main.__i"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_it.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\main_1.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_it_1.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_adc.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_gpio.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_iic_fmeep.__i"
@@ -17,6 +15,8 @@ SET CPU_CLOCK=0x00B71B00
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_uart_process.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_monitor.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\bsp_turboctrl.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\system_stm32f10x.__i"
+"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\core_cm3.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\misc.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_adc.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_bkp.__i"

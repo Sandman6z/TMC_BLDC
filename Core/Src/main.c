@@ -9,16 +9,16 @@
  */
 
 #include <math.h>
-#include "./main.h"
+#include "../Inc/main.h"
 #include "stm32f10x.h"
 #include "stm32f10x_it.h"
-#include "../User/bsp_adc.h"
-#include "../User/bsp_gpio.h"
-#include "../User/bsp_led.h"
-#include "../User/bsp_TMC4671.h"
-#include "../User/bsp_TurboCtrl.h"
-#include "../User/bsp_uart.h"
-#include "../User/bsp_uart_process.h"
+#include "../../User/bsp_adc.h"
+#include "../../User/bsp_gpio.h"
+#include "../../User/bsp_led.h"
+#include "../../User/bsp_TMC4671.h"
+#include "../../User/bsp_TurboCtrl.h"
+#include "../../User/bsp_uart.h"
+#include "../../User/bsp_uart_process.h"
 
 uint8_t rtc_flag, warkup_flag;
 __IO uint16_t ADCConvertedValue[15];
@@ -90,7 +90,7 @@ int main()
         if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
             ADCvolt[1] = 0;
 
-//        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32));        //get DAC value from BDU control board
+        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32));        //get DAC value from BDU control board
         if (targetValue >= 3000 && targetValue <= 45000 )                       //&& POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1
         {
             TMC4671_EN();

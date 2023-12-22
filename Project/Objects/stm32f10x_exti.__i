@@ -1,4 +1,4 @@
---c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\Libraries\CMSIS -I ..\Libraries\CMSIS\CoreSupport -I ..\Project -I ..\User
+--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\Libraries\CMSIS -I ..\Libraries\CMSIS\CoreSupport -I ..\User -I ..\Core\Inc
 -I.\RTE\_BLDC
 -IC:\Users\Bitch\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
 -IC:\Users\Bitch\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include

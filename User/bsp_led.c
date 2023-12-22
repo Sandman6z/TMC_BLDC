@@ -1,6 +1,6 @@
-#include "./main.h"
-#include "../User/bsp_gpio.h"
-#include "../User/bsp_led.h"
+#include "../Core/Inc/main.h"
+#include "bsp_gpio.h"
+#include "bsp_led.h"
 
 void WorkStateIndicate(void)
 {

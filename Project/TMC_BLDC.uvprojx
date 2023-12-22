@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\Libraries\CMSIS;..\Libraries\CMSIS\CoreSupport;..\Project;..\User</IncludePath>
+              <IncludePath>..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\Libraries\CMSIS;..\Libraries\CMSIS\CoreSupport;..\User;..\Core\Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -392,33 +392,23 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>CMSIS</GroupName>
-          <Files>
-            <File>
-              <FileName>system_stm32f10x.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Libraries\CMSIS\system_stm32f10x.c</FilePath>
-            </File>
-            <File>
-              <FileName>core_cm3.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Libraries\CMSIS\CoreSupport\core_cm3.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>USER</GroupName>
+          <GroupName>Core</GroupName>
           <Files>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\main.c</FilePath>
+              <FilePath>..\Core\Src\main.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_it.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\stm32f10x_it.c</FilePath>
+              <FilePath>..\Core\Src\stm32f10x_it.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Drivers/BSP</GroupName>
+          <Files>
             <File>
               <FileName>bsp_adc.c</FileName>
               <FileType>1</FileType>
@@ -467,7 +457,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Driver</GroupName>
+          <GroupName>Drivers/CMSIS</GroupName>
+          <Files>
+            <File>
+              <FileName>system_stm32f10x.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\CMSIS\system_stm32f10x.c</FilePath>
+            </File>
+            <File>
+              <FileName>core_cm3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\CMSIS\CoreSupport\core_cm3.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Drivers/Std</GroupName>
           <Files>
             <File>
               <FileName>misc.c</FileName>

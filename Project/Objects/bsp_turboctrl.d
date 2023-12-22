@@ -28,8 +28,8 @@
 .\objects\bsp_turboctrl.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\objects\bsp_turboctrl.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\bsp_turboctrl.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\objects\bsp_turboctrl.o: ..\Project\./main.h
-.\objects\bsp_turboctrl.o: ..\Project\./../User/bsp_adc.h
+.\objects\bsp_turboctrl.o: ..\User\../Core/Inc/main.h
+.\objects\bsp_turboctrl.o: ..\User\../Core/Inc/../../User/bsp_adc.h
 .\objects\bsp_turboctrl.o: ..\User\../User/bsp_gpio.h
 .\objects\bsp_turboctrl.o: ..\User\../User/bsp_led.h
 .\objects\bsp_turboctrl.o: ..\User\../User/bsp_TMC4671.h

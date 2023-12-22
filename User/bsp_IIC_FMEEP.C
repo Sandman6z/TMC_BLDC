@@ -1,5 +1,5 @@
 #include "bsp_IIC_FMEEP.h"
-#include "./main.h"
+#include "../Core/Inc/main.h"
 
 void GPIO_FMEEP_init(void)
 {

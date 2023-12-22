@@ -1,5 +1,5 @@
 #include "bsp_uart_process.h"
-#include "./main.h"
+#include "../Core/Inc/main.h"
 
 /***********************************************************************************
 * Uart1_Send;

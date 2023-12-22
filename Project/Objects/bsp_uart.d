@@ -1,5 +1,5 @@
 .\objects\bsp_uart.o: ..\User\bsp_Uart.c
-.\objects\bsp_uart.o: ..\Project\./main.h
+.\objects\bsp_uart.o: ..\User\../Core/Inc/main.h
 .\objects\bsp_uart.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x.h
 .\objects\bsp_uart.o: ..\Libraries\CMSIS\CoreSupport\core_cm3.h
 .\objects\bsp_uart.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -29,5 +29,5 @@
 .\objects\bsp_uart.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\objects\bsp_uart.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\bsp_uart.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\objects\bsp_uart.o: ..\Project\./../User/bsp_adc.h
+.\objects\bsp_uart.o: ..\User\../Core/Inc/../../User/bsp_adc.h
 .\objects\bsp_uart.o: ..\User\bsp_uart.h

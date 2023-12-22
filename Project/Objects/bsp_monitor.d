@@ -1,6 +1,6 @@
 .\objects\bsp_monitor.o: ..\User\bsp_monitor.c
 .\objects\bsp_monitor.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\objects\bsp_monitor.o: ..\Project\./main.h
+.\objects\bsp_monitor.o: ..\User\../Core/Inc/main.h
 .\objects\bsp_monitor.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x.h
 .\objects\bsp_monitor.o: ..\Libraries\CMSIS\CoreSupport\core_cm3.h
 .\objects\bsp_monitor.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -30,7 +30,7 @@
 .\objects\bsp_monitor.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\objects\bsp_monitor.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\bsp_monitor.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\objects\bsp_monitor.o: ..\Project\./../User/bsp_adc.h
+.\objects\bsp_monitor.o: ..\User\../Core/Inc/../../User/bsp_adc.h
 .\objects\bsp_monitor.o: ..\User\../User/bsp_gpio.h
 .\objects\bsp_monitor.o: ..\User\../User/bsp_uart.h
 .\objects\bsp_monitor.o: ..\User\../User/bsp_uart_process.h

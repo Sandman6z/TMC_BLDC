@@ -1,4 +1,4 @@
-#include "./main.h"
+#include "../Core/Inc/main.h"
 #include "bsp_uart.h"
 
 

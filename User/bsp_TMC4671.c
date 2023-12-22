@@ -1,5 +1,5 @@
 #include  "bsp_TMC4671.h"
-#include "./main.h"
+#include "../Core/Inc/main.h"
 
 #define Set_SPI_MOSI()		GPIO_SetBits(GPIOB,GPIO_Pin_15)
 #define ReSet_SPI_MOSI()	GPIO_ResetBits(GPIOB,GPIO_Pin_15)

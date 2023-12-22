@@ -1,5 +1,5 @@
 #include "bsp_adc.h"
-#include "./main.h"
+#include "../Core/Inc/main.h"
 #include "bsp_TMC4671.h"
 
 extern __IO uint16_t ADCConvertedValue[]; 
