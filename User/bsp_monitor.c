@@ -4,7 +4,7 @@
 #include "../User/bsp_gpio.h"
 #include "../User/bsp_uart.h"
 #include "../User/bsp_uart_process.h"
-
+#include "../User/bsp_monitor.h"
 
 void wdg_init(void)
 {
@@ -53,20 +53,11 @@ float Calculate_temperature(uint32_t adc_V, float Bx)
     return temp;
 }
 
-void SysInit(void)
-{
-    SetSysClockTo16();
-    RCC_Configuration();  // System Clocks Configuration
-    NVIC_Configuration(); // �ж� NVIC configuration
-    GPIO_Configuration(); // Configure the GPIO ports
-    TIM_Configuration();
-    InitUsart2();
-    TMC4671_DIS();
-    ADC1_MODE_CONFIG();
-}
-
 void MOS_TempCheck(void)
 {
+    float tem = 0.0f;
+    tem = Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
+    
     if (tem < -40 || tem > 72)
         TEMSTATUS = 0;              // backup error
     else
@@ -96,9 +87,21 @@ void Overvoltage_oprate(void)
         RS = 0;
     }
     if (RS == 0 && Voltage_BUS < 100)
-        RSTATUS = 0;
+        Res_STATUS = 0;
     else
-        RSTATUS = 1;
+        Res_STATUS = 1;
+}
+
+void SysInit(void)
+{
+    SetSysClockTo16();
+    RCC_Configuration();  // System Clocks Configuration
+    NVIC_Configuration(); // �ж� NVIC configuration
+    GPIO_Configuration(); // Configure the GPIO ports
+    TIM_Configuration();
+    InitUsart2();
+    TMC4671_DIS();
+    ADC1_MODE_CONFIG();
 }
 
 /**
@@ -111,14 +114,8 @@ void Overvoltage_oprate(void)
  */
 int inverseMapADCValue(uint16_t adc_value) 
 {
-    // 计算逆向缩放因子：原始范围宽度 / 目标范围宽度
-    const double inverse_scale_factor = 4095.0 / 42000.0;
-
-    // 计算逆向偏移值：原始范围最小值 - (目标范围最小值 * 逆向缩放因子)
-    //const double inverse_offset = 0.0 - (3000.0 * inverse_scale_factor);
-
-    // 使用逆向缩放因子和逆向偏移值将ADC值映射到目标值
-    uint16_t target_value = (adc_value / inverse_scale_factor);// + inverse_offset);
+    float target_value;
+    target_value = (float)(adc_value * 13.107 - 365.15);
     
     // 确保目标值在合法范围内（3000到42000之间）
     if (target_value < 3000) 

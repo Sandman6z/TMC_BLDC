@@ -34,3 +34,4 @@
 .\objects\bsp_monitor.o: ..\User\../User/bsp_gpio.h
 .\objects\bsp_monitor.o: ..\User\../User/bsp_uart.h
 .\objects\bsp_monitor.o: ..\User\../User/bsp_uart_process.h
+.\objects\bsp_monitor.o: ..\User\../User/bsp_monitor.h

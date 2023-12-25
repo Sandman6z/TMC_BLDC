@@ -35,4 +35,3 @@ SET CPU_CLOCK=0x00B71B00
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_usart.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_wwdg.__i"
 "C:\Program Files\Keil_v5\ARM\ARMCC\Bin\ArmLink" --Via ".\Objects\TMC_BLDC.lnp"
-"C:\Program Files\Keil_v5\ARM\ARMCC\Bin\fromelf.exe" ".\Objects\TMC_BLDC.axf" --i32combined --output ".\Objects\TMC_BLDC.hex"

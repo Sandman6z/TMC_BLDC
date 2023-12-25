@@ -26,11 +26,15 @@ Project File Date:  12/25/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Program Files\Keil_v5\ARM\ARMCC\Bin'
+*** Note: Rebuilding project, since 'Options->Output->Create Batch File' is selected.
 Rebuild target 'BLDC'
 Note: source file '..\Core\Src\main.c' - object file renamed from '.\Objects\main.o' to '.\Objects\main_1.o'.
 Note: source file '..\Core\Src\stm32f10x_it.c' - object file renamed from '.\Objects\stm32f10x_it.o' to '.\Objects\stm32f10x_it_1.o'.
 assembling startup_stm32f10x_md.s...
 compiling main.c...
+..\Core\Src\main.c(97): warning:  #223-D: function "ResExistDetect" declared implicitly
+          ResExistDetect();
+..\Core\Src\main.c: 1 warning, 0 errors
 compiling stm32f10x_it.c...
 compiling bsp_adc.c...
 compiling bsp_gpio.c...
@@ -61,9 +65,11 @@ compiling stm32f10x_tim.c...
 compiling stm32f10x_usart.c...
 compiling stm32f10x_wwdg.c...
 linking...
-Program Size: Code=23508 RO-data=332 RW-data=124 ZI-data=1844  
-FromELF: creating hex file...
-".\Objects\TMC_BLDC.axf" - 0 Error(s), 0 Warning(s).
+.\Objects\TMC_BLDC.axf: Error: L6218E: Undefined symbol ResExistDetect (referred from main_1.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 1 error messages.
+".\Objects\TMC_BLDC.axf" - 1 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -86,6 +92,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE@5.6.0
+Target not created.
 Build Time Elapsed:  00:00:06
 </pre>
 </body>
