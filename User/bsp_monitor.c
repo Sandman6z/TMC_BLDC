@@ -111,14 +111,8 @@ void Overvoltage_oprate(void)
  */
 int inverseMapADCValue(uint16_t adc_value) 
 {
-    // 计算逆向缩放因子：原始范围宽度 / 目标范围宽度
-    const double inverse_scale_factor = 4095.0 / 42000.0;
-
-    // 计算逆向偏移值：原始范围最小值 - (目标范围最小值 * 逆向缩放因子)
-    //const double inverse_offset = 0.0 - (3000.0 * inverse_scale_factor);
-
-    // 使用逆向缩放因子和逆向偏移值将ADC值映射到目标值
-    uint16_t target_value = (adc_value / inverse_scale_factor);// + inverse_offset);
+    float target_value;
+    target_value = (float)(adc_value * 13.107 - 365.15);
     
     // 确保目标值在合法范围内（3000到42000之间）
     if (target_value < 3000) 

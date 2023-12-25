@@ -16,7 +16,7 @@
 #define END4 0x3c
 
 #define PRE_ADD 0x05
-#define BDU 0x32 //????�̣�?a
+#define BDU     0x32 //????�̣�?a
 
 #define ADC1_DR_Address ((u32)0x40012400 + 0x4c)
 #define ClearWDG() WWDG_SetCounter(0xff)

@@ -80,8 +80,7 @@ int main()
 //      Voltage_BUS	= (float)ADCvolt[0] * 6.77;                                     //Voltage_BUS:Voltage of BUS
         tem		= Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
         tem2 	= Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
-        //float pwm  = 3 * tem - 130;
-
+        
         MOS_TempCheck();
         PowerCheck();
         Overvoltage_oprate();
@@ -90,8 +89,8 @@ int main()
         if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
             ADCvolt[1] = 0;
 
-//        targetValue = inverseMapADCValue((double)(ADCvolt[1] * 1.32));        //get DAC value from BDU control board
-        if (targetValue >= 3000 && targetValue <= 45000 )                       //&& POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1
+        targetValue = inverseMapADCValue(ADCvolt[1]);        //get DAC value from BDU control board
+        if (targetValue >= 3000 && targetValue <= 45000 && POWER == 1 && TEMSTATUS == 1 && RSTATUS == 1)  // 确保目标值在合法范围内（3000到42000之间）
         {
             TMC4671_EN();
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right
