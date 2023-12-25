@@ -2,12 +2,8 @@
 #include "../Core/Inc/main.h"
 #include "bsp_TMC4671.h"
 
-extern __IO uint16_t ADCConvertedValue[]; 
-
 void ADC1_MODE_CONFIG(void)
 {
-    unsigned char NUM_CH = 8;
-
     DMA_InitTypeDef DMA_InitStructure;
     ADC_InitTypeDef ADC_InitStructure;
     RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1,   ENABLE);    // Enable DMA clock
@@ -17,7 +13,7 @@ void ADC1_MODE_CONFIG(void)
     DMA_InitStructure.DMA_PeripheralBaseAddr    = ADC1_DR_Address;     				// ADC��ַ
     DMA_InitStructure.DMA_MemoryBaseAddr        = (u32)&ADCConvertedValue; 			// �ڴ��ַ
     DMA_InitStructure.DMA_DIR                   = DMA_DIR_PeripheralSRC;
-    DMA_InitStructure.DMA_BufferSize            = NUM_CH;                           // 5;//ZHN20211123
+    DMA_InitStructure.DMA_BufferSize            = ADC1_CH_NUM;                           // 5;//ZHN20211123
     DMA_InitStructure.DMA_PeripheralInc         = DMA_PeripheralInc_Disable;        // �����ַ�̶�
     DMA_InitStructure.DMA_MemoryInc             = DMA_MemoryInc_Enable;             // �ڴ��ַ���̶�
     DMA_InitStructure.DMA_PeripheralDataSize    = DMA_PeripheralDataSize_HalfWord;  // ����
@@ -37,20 +33,19 @@ void ADC1_MODE_CONFIG(void)
     ADC_InitStructure.ADC_ContinuousConvMode    = ENABLE;                       // ��������ת��ģʽ������ͣ�ؽ���ADCת��
     ADC_InitStructure.ADC_ExternalTrigConv      = ADC_ExternalTrigConv_None;    // ��ʹ���ⲿ����ת��
     ADC_InitStructure.ADC_DataAlign             = ADC_DataAlign_Right;          // �ɼ������Ҷ���
-    ADC_InitStructure.ADC_NbrOfChannel          = NUM_CH;                       // 5;	 	//Ҫת����ͨ����Ŀ5//ZHN20211123
+    ADC_InitStructure.ADC_NbrOfChannel          = ADC1_CH_NUM;                       // 5;	 	//Ҫת����ͨ����Ŀ5//ZHN20211123
     ADC_Init(ADC1, &ADC_InitStructure);
 
-    // ����ADC1 Ϊ239��11���������ڣ�����Ϊ1
     /**
      * @brief 
-     * ADC_Channel_0    BRAKE_DETECT
-     * ADC_Channel_1    AD_SPEED
-     * ADC_Channel_2    MOS_T_ADC
-     * ADC_Channel_3    I_SUM_ADC
-     * ADC_Channel_4    VM_ADC
-     * ADC_Channel_5    TUR_T_ADC
-     * ADC_Channel_8        
-     * ADC_Channel_17   内部通道
+     * ADC_Channel_0    BRAKE_DETECT / Power Voltage      PA0            ADCvolt[0]
+     * ADC_Channel_1        AD_SPEED / from BDU           PA1            ADCvolt[1]
+     * ADC_Channel_2       MOS_T_ADC                      PA2            ADCvolt[6]
+     * ADC_Channel_3       I_SUM_ADC                      PA3            ADCvolt[7]
+     * ADC_Channel_4          VM_ADC / N.C.               PA4            ADCvolt[3]
+     * ADC_Channel_5       TUR_T_ADC / N.C.               PA5            ADCvolt[2]
+     * ADC_Channel_8           I_SET                      PB0            ADCvolt[4]
+     * ADC_Channel_17       内部通道                       /                 /
      */
     ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_71Cycles5);	
     ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 2, ADC_SampleTime_71Cycles5);

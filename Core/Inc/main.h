@@ -4,22 +4,27 @@
 #include "stm32f10x.h"
 #include "../../User/bsp_adc.h"
 
-#define BEEP_TIME 2
+#define     BEEP_TIME 2
 
-#define HEAD1 0xaa
-#define HEAD2 0x55
-#define HEAD3 0x00
-#define HEAD4 0x00
-#define END1 0xcc
-#define END2 0x33
-#define END3 0xc3
-#define END4 0x3c
+#define     HEAD1               0xaa
+#define     HEAD2               0x55
+#define     HEAD3               0x00
+#define     HEAD4               0x00
+#define     END1                0xcc
+#define     END2                0x33
+#define     END3                0xc3
+#define     END4                0x3c
 
-#define PRE_ADD 0x05
-#define BDU 0x32 //????�̣�?a
+#define     PRE_ADD             0x05
+#define     BDU                 0x32
 
-#define ADC1_DR_Address ((u32)0x40012400 + 0x4c)
-#define ClearWDG() WWDG_SetCounter(0xff)
+#define     ADC1_DR_Address     ((u32)0x40012400 + 0x4c)
+#define     ClearWDG()          WWDG_SetCounter(0xff)
+
+#define     ADC1_CH_NUM         8
+
+#define     Turbo_Minspeed      3000
+#define     Turbo_MAXspeed      60000
 
 /*********���ڲ���************/
 extern u8 nRec1, R_Data1, Rx_Buf1[15], RI1_flag;

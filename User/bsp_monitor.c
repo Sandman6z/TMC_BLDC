@@ -86,6 +86,10 @@ void Overvoltage_oprate(void)
         R_OFF;
         RS = 0;
     }
+}
+
+void ResExistDetect(void)
+{
     if (RS == 0 && Voltage_BUS < 100)
         Res_STATUS = 0;
     else
@@ -118,13 +122,13 @@ int inverseMapADCValue(uint16_t adc_value)
     target_value = (float)(adc_value * 13.107 - 365.15);
     
     // 确保目标值在合法范围内（3000到42000之间）
-    if (target_value < 3000) 
+    if (target_value < Turbo_Minspeed) 
     {
-        target_value = 3000;
+        target_value = Turbo_Minspeed;
     } 
-    else if (target_value > 42000) 
+    else if (target_value > Turbo_MAXspeed) 
     {
-        target_value = 42000;
+        target_value = Turbo_MAXspeed;
     }
     
     return target_value;
