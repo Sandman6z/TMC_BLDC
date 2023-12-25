@@ -25,7 +25,7 @@ __IO uint16_t ADCConvertedValue[15];
 uint32_t ADCValue[15] = {0, 0, 0};                      // 初始化前3个元素为0
 uint32_t ADCvolt[15];
 uint32_t POWER = 0, TEMSTATUS = 0, RS = 0, RSTATUS = 0;
-int32_t Voltage_BUS, targetValue;
+int32_t Voltage_BUS = 0, targetValue = 0;
 float tem = 0.0f, tem2 = 0.0f;
 
 
@@ -77,10 +77,9 @@ int main()
             }
         }
 
-//      Voltage_BUS	= (float)ADCvolt[0] * 6.77;                                     //Voltage_BUS:Voltage of BUS
+        Voltage_BUS	= (float)ADCvolt[0] * 6.77;                                     //Voltage_BUS:Voltage of BUS
         tem		= Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
         tem2 	= Calculate_temperature(ADCvolt[2], 3020.0f) * 0.01f + tem2 * 0.99f;
-        //float pwm  = 3 * tem - 130;
 
         MOS_TempCheck();
         PowerCheck();

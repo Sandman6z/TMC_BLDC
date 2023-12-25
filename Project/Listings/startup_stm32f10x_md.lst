@@ -481,9 +481,10 @@ o -I.\STM32F10x_StdPeriph_Driver\inc -I.\STM32F10x_StdPeriph_Driver\src -I..\ST
 M32F107 -I..\NIBP-PS-2.00调试+风扇正常\FWlib -I..\NIBP-PS-2.00调试+风扇正常 -I.
 \RTE\_BLDC -IC:\Users\Bitch\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\
 Include -IC:\Users\Bitch\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Devic
-e\Include --predefine="__UVISION_VERSION SETA 538" --predefine="_RTE_ SETA 1" -
--predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ SETA 1" --list=.\listings\s
-tartup_stm32f10x_md.lst ..\Libraries\CMSIS\startup\arm\startup_stm32f10x_md.s
+e\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 539" 
+--predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_
+ SETA 1" --list=.\listings\startup_stm32f10x_md.lst ..\Libraries\CMSIS\startup\
+arm\startup_stm32f10x_md.s
 
 
 
@@ -1209,4 +1210,4 @@ Symbol: __use_two_region_memory
       None
 Comment: __use_two_region_memory unused
 3 symbols
-409 symbols in table
+410 symbols in table
