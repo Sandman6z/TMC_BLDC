@@ -6,6 +6,8 @@
 #include "../User/bsp_uart_process.h"
 #include "../User/bsp_monitor.h"
 
+int32_t Voltage_BUS =0;
+
 void wdg_init(void)
 {
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_WWDG, ENABLE);
@@ -59,9 +61,14 @@ void MOS_TempCheck(void)
     tem = Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
     
     if (tem < -40 || tem > 72)
-        TEMSTATUS = 0;              // backup error
+        TemStatus = 0;              // backup error
     else
-        TEMSTATUS = 1;
+        TemStatus = 1;
+}
+
+void BUS_Voltage_Calc(void)
+{
+    Voltage_BUS = (float)ADCvolt[0] * 6.77;            //Voltage_BUS:Voltage of BUS
 }
 
 void PowerCheck(void)
@@ -77,31 +84,31 @@ void Overvoltage_oprate(void)
     if (Voltage_BUS > 2800)
     {
         LED_OV_ON;
-        R_ON;       //使能泄放电阻
-        RS = 1;
+        BrakeRes_ON;       //使能泄放电阻
+        Braking = 1;
     }
     else
     {
         LED_OV_OFF;
-        R_OFF;
-        RS = 0;
+        BrakeRes_OFF;
+        Braking = 0;
     }
 }
 
 void ResExistDetect(void)
 {
-    if (RS == 0 && Voltage_BUS < 100)
+    if (Braking == 0 && Voltage_BUS < 100)
         Res_STATUS = 0;
     else
-        Res_STATUS = 1;
+        Res_STATUS = 1;     //think whether left this sentence
 }
 
 void SysInit(void)
 {
     SetSysClockTo16();
-    RCC_Configuration();  // System Clocks Configuration
-    NVIC_Configuration(); // �ж� NVIC configuration
-    GPIO_Configuration(); // Configure the GPIO ports
+    RCC_Configuration();
+    NVIC_Configuration();
+    GPIO_Configuration();
     TIM_Configuration();
     InitUsart2();
     TMC4671_DIS();
@@ -110,10 +117,7 @@ void SysInit(void)
 
 /**
  * @brief 函数来进行逆向ADC值的映射
- * 
  * @param adc_value 
- *  原始数据范围：0~4095
- *  目标范围：		3000~42000
  * @return target_value 
  */
 int inverseMapADCValue(uint16_t adc_value) 

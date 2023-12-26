@@ -1,12 +1,6 @@
 #ifndef __GPIO_H__
 #define __GPIO_H__
 
-// #define GPIO_IO0_TMC4671 GPIOA
-// #define IO0_TMC4671_Pin GPIO_Pin_12
-
-// #define GPIO_IO1_TMC4671 GPIOA
-// #define IO1_TMC4671_Pin GPIO_Pin_11
-
 #define GPIO_ENIN_TMC4671   GPIOC
 #define ENIN_TMC4671_Pin    GPIO_Pin_15
 
@@ -22,8 +16,8 @@
 #define LED_OV_OFF  		GPIO_SetBits(GPIOB, GPIO_Pin_5)
 #define LED_OV_ON   		GPIO_ResetBits(GPIOB, GPIO_Pin_5)
 
-#define R_ON    			GPIO_SetBits(GPIOB, GPIO_Pin_4)
-#define R_OFF   			GPIO_ResetBits(GPIOB, GPIO_Pin_4)
+#define BrakeRes_ON    		GPIO_SetBits(GPIOB, GPIO_Pin_4)
+#define BrakeRes_OFF   		GPIO_ResetBits(GPIOB, GPIO_Pin_4)
 
 #define LED_ERROR_OFF   	GPIO_SetBits(GPIOB, GPIO_Pin_6)
 #define LED_ERROR_ON    	GPIO_ResetBits(GPIOB, GPIO_Pin_6)

@@ -25,21 +25,21 @@ uint8_t rtc_flag = 0, warkup_flag = 0;
 __IO uint16_t ADCConvertedValue[15] = {0};
 uint32_t ADCValue[15] = {0}, ADCvolt[15] = {0};
 /**
-The table below gives the meaning of these variable: POWER, TEMSTATUS, RS variable by each 
+The table below gives the meaning of these variable: POWER, TemStatus, Braking, Res_STATUS
   =======================================================+
      VALUE     |          0          |         1         |
   =======================================================+
      POWER     |        FAULT        |      NORMAL       |
   -------------------------------------------------------+
-   TEMSTATUS   |  MOS_Temp OVERHEAT  |  MOS_Temp NORMAL  |
+   TemStatus   |  MOS_Temp OVERHEAT  |  MOS_Temp NORMAL  |
   -------------------------------------------------------+
-       RS      |       NORMAL        |   Overvoltaging   |
+    Braking    |       NORMAL        |   Overvoltaging   |
   -------------------------------------------------------+
    Res_STATUS  |    Break circuit    |      NORMAL       |
   =======================================================+
 */
-uint32_t POWER = 0, TEMSTATUS = 0, RS = 0, Res_STATUS = 0; 
-int32_t Voltage_BUS =0, targetValue = 0;
+uint32_t POWER = 0, TemStatus = 0, Braking = 0, Res_STATUS = 1; 
+int32_t targetValue = 0;
 
 int main()
 {
@@ -88,9 +88,6 @@ int main()
                 ADCValue[i] = 0;
             }
         }
-
-        Voltage_BUS	= (float)ADCvolt[0] * 6.77;                                     //Voltage_BUS:Voltage of BUS
-
         MOS_TempCheck();
         PowerCheck();
         Overvoltage_oprate();
@@ -101,7 +98,7 @@ int main()
 
 
         targetValue = inverseMapADCValue(ADCvolt[1]);        //get DAC value from BDU control board
-        if (targetValue >= Turbo_Minspeed && targetValue <= Turbo_MAXspeed )                       //&& POWER == 1 && TEMSTATUS == 1 && Res_STATUS == 1
+        if (targetValue >= Turbo_Minspeed && targetValue <= Turbo_MAXspeed )                       //&& POWER == 1 && TemStatus == 1 && Res_STATUS == 1
         {
             TMC4671_EN();
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right
