@@ -776,7 +776,7 @@ Image Symbol Table
     Overvoltage_oprate                       0x080011d1   Thumb Code    60  bsp_monitor.o(.text)
     ResExistDetect                           0x0800120d   Thumb Code    30  bsp_monitor.o(.text)
     SysInit                                  0x0800122b   Thumb Code    38  bsp_monitor.o(.text)
-    inverseMapADCValue                       0x08001251   Thumb Code    82  bsp_monitor.o(.text)
+    inverseMapADCValue                       0x08001251   Thumb Code    80  bsp_monitor.o(.text)
     DISABLE_TMC                              0x08001315   Thumb Code    24  bsp_turboctrl.o(.text)
     TurboCtrl                                0x0800132d   Thumb Code    62  bsp_turboctrl.o(.text)
     SystemInit                               0x0800145b   Thumb Code    78  system_stm32f10x.o(.text)
@@ -1386,7 +1386,7 @@ Image component sizes
        352         14          0          0          0        683   bsp_adc.o
        348         18          0          0          0        653   bsp_gpio.o
         64         18          0          0          0        444   bsp_led.o
-       848        114          0          4          0       2404   bsp_monitor.o
+       848        116          0          4          0       2404   bsp_monitor.o
       1064         48          0          0          0       3019   bsp_tmc4671.o
        104         18          0          0          0        564   bsp_turboctrl.o
        708         26          0         24        152     303974   main_1.o
@@ -1408,7 +1408,7 @@ Image component sizes
        480         38          0         20          0       1787   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-     16632        752        268        116       1748     407548   Object Totals
+     16632        754        268        116       1748     407548   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          4          0          0          2          0          0   (incl. Padding)
 
@@ -1491,9 +1491,9 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     22420       1120        332        116       1844     406784   Grand Totals
-     22420       1120        332        116       1844     406784   ELF Image Totals
-     22420       1120        332        116          0          0   ROM Totals
+     22420       1122        332        116       1844     406784   Grand Totals
+     22420       1122        332        116       1844     406784   ELF Image Totals
+     22420       1122        332        116          0          0   ROM Totals
 
 ==============================================================================
 
