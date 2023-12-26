@@ -17,11 +17,7 @@ void TurboCtrl(void)
     if (tmc4671_readInt(1, 0, 0) == 0x34363731)
     {
         tmc4671_init_set();
-        timeout = 100;
-        while (timeout)
-        {
-            ClearWDG();
-        }
+        ClearWDG();
         TMC4671_EN();
     }
     else

@@ -47,20 +47,10 @@ int main()
 
     SysInit();
     __set_PRIMASK(0);
-
-    timeout = 100;
-    while (timeout)
-    {
-        ClearWDG();
-    }
+    ClearWDG();
     init_TMC4671();
     TurboCtrl();
-
-    timeout = 100;
-    while (timeout)
-    {
-        ClearWDG();
-    }
+    ClearWDG();
     while (1)
     {
         ClearWDG();
@@ -71,11 +61,7 @@ int main()
             {
                 ADCValue[i] += ADCConvertedValue[i];
             }
-            int t = 10;
-            while (t--)
-            {
-                ClearWDG();
-            }
+            ClearWDG();
         }
         if (ADC_count >= 4)
         {
