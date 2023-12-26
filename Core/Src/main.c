@@ -23,7 +23,7 @@
 
 uint8_t rtc_flag = 0, warkup_flag = 0;
 __IO uint16_t ADCConvertedValue[15] = {0};
-uint32_t ADCValue[15] = {0}, ADCvolt[15] = {0};
+uint32_t ADCValue[15] = {0}, ADCVolt[15] = {0};
 /**
 The table below gives the meaning of these variable: POWER, TemStatus, Braking, Res_STATUS
   =======================================================+
@@ -82,9 +82,7 @@ int main()
             ADC_count = 0;
             for (int i = 0; i < 6; i++)
             {
-                ADCvolt[i]  = ADCValue[i] / 4;
-                ADCvolt[i]  = ADCvolt[i] * 3300;
-                ADCvolt[i]  = ADCvolt[i] >> 12;
+                ADCVolt[i] = (ADCValue[i] * 825) >> 12;     //(ADCValue[i] *3300 / 4) >> 12;
                 ADCValue[i] = 0;
             }
         }
@@ -94,11 +92,8 @@ int main()
         ResExistDetect();
         WorkStateIndicate();
         DISABLE_TMC();
-
-
-
-        targetValue = inverseMapADCValue(ADCvolt[1]);        //get DAC value from BDU control board
-        if (targetValue >= Turbo_Minspeed && targetValue <= Turbo_MAXspeed )                       //&& POWER == 1 && TemStatus == 1 && Res_STATUS == 1
+        targetValue = inverseMapADCValue(ADCVolt[1]);                           //get DAC value from BDU control board
+        if (targetValue >= Turbo_Minspeed && targetValue <= Turbo_MAXspeed )    //&& POWER == 1 && TemStatus == 1 && Res_STATUS == 1
         {
             TMC4671_EN();
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right

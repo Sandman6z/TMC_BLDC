@@ -38,13 +38,13 @@ void ADC1_MODE_CONFIG(void)
 
 /**
  * @brief 
- * ADC_Channel_0    BRAKE_DETECT / Power Voltage    PA0        ADCvolt[0]
- * ADC_Channel_1        AD_SPEED / from BDU         PA1        ADCvolt[1]
- * ADC_Channel_2       MOS_T_ADC                    PA2        ADCvolt[6]
- * ADC_Channel_3       I_SUM_ADC                    PA3        ADCvolt[7]
- * ADC_Channel_4          VM_ADC / N.C.             PA4        ADCvolt[3]
- * ADC_Channel_5       TUR_T_ADC / N.C.             PA5        ADCvolt[2]
- * ADC_Channel_8           I_SET                    PB0        ADCvolt[4]
+ * ADC_Channel_0    BRAKE_DETECT / Power Voltage    PA0        ADCVolt[0]
+ * ADC_Channel_1        AD_SPEED / from BDU         PA1        ADCVolt[1]
+ * ADC_Channel_2       MOS_T_ADC                    PA2        ADCVolt[6]
+ * ADC_Channel_3       I_SUM_ADC                    PA3        ADCVolt[7]
+ * ADC_Channel_4          VM_ADC / N.C.             PA4        ADCVolt[3]
+ * ADC_Channel_5       TUR_T_ADC / N.C.             PA5        ADCVolt[2]
+ * ADC_Channel_8           I_SET                    PB0        ADCVolt[4]
  * ADC_Channel_17       内部通道                     /             /
  */
     ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_71Cycles5);

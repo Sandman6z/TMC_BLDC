@@ -39,7 +39,7 @@ extern uint8_t rtc_flag, warkup_flag;
 
 extern __IO uint16_t ADCConvertedValue[];
 extern uint32_t ADCValue[];
-extern uint32_t ADCvolt[];
+extern uint32_t ADCVolt[];
 extern uint32_t POWER, TemStatus, Braking, Res_STATUS;
 extern int32_t Voltage_BUS, targetValue;
 

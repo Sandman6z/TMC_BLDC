@@ -58,7 +58,7 @@ float Calculate_temperature(uint32_t adc_V, float Bx)
 void MOS_TempCheck(void)
 {
     float tem = 0.0f;
-    tem = Calculate_temperature(ADCvolt[2], 3490.0f) * 0.01f + tem * 0.99f;
+    tem = Calculate_temperature(ADCVolt[2], 3490.0f) * 0.01f + tem * 0.99f;
     
     if (tem < -40 || tem > 72)
         TemStatus = 0;              // backup error
@@ -68,7 +68,7 @@ void MOS_TempCheck(void)
 
 void BUS_Voltage_Calc(void)
 {
-    Voltage_BUS = (float)ADCvolt[0] * 6.77;            //Voltage_BUS:Voltage of BUS
+    Voltage_BUS = (float)ADCVolt[0] * 6.77;            //Voltage_BUS:Voltage of BUS
 }
 
 void PowerCheck(void)

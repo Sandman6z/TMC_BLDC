@@ -8,7 +8,7 @@
 void DISABLE_TMC(void)
 {
     if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == 1)
-        ADCvolt[1] = 0;
+        ADCVolt[1] = 0;
 }
 
 void TurboCtrl(void)
