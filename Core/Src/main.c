@@ -17,8 +17,6 @@
 #include "../../User/bsp_led.h"
 #include "../../User/bsp_TMC4671.h"
 #include "../../User/bsp_TurboCtrl.h"
-#include "../../User/bsp_uart.h"
-#include "../../User/bsp_uart_process.h"
 #include "../../User/bsp_monitor.h"
 
 uint8_t rtc_flag = 0, warkup_flag = 0;

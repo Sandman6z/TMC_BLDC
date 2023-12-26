@@ -2,8 +2,6 @@
 #include "../Core/Inc/main.h"
 #include "../User/bsp_adc.h"
 #include "../User/bsp_gpio.h"
-#include "../User/bsp_uart.h"
-#include "../User/bsp_uart_process.h"
 #include "../User/bsp_monitor.h"
 
 int32_t Voltage_BUS =0;
@@ -29,15 +27,6 @@ void get_speed(void)
         temp = temp + ((uint32_t)Rx_Buf2[7] - 0x30);
         RI2_flag = 0;
         Rx_Buf2[9] = '\0';
-
-        usart2_send('S');
-        usart2_send('E');
-        usart2_send('=');
-        for (int i = 3; i <= 7; i++)
-        {
-            usart2_send(Rx_Buf2[i]);
-        }
-        usart2_send(',');
     }
 }
 
@@ -110,7 +99,6 @@ void SysInit(void)
     NVIC_Configuration();
     GPIO_Configuration();
     TIM_Configuration();
-    InitUsart2();
     TMC4671_DIS();
     ADC1_MODE_CONFIG();
 }

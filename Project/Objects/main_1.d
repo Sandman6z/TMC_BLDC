@@ -36,6 +36,4 @@
 .\objects\main_1.o: ..\Core\Src\../../User/bsp_led.h
 .\objects\main_1.o: ..\Core\Src\../../User/bsp_TMC4671.h
 .\objects\main_1.o: ..\Core\Src\../../User/bsp_TurboCtrl.h
-.\objects\main_1.o: ..\Core\Src\../../User/bsp_uart.h
-.\objects\main_1.o: ..\Core\Src\../../User/bsp_uart_process.h
 .\objects\main_1.o: ..\Core\Src\../../User/bsp_monitor.h
