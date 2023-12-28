@@ -81,7 +81,7 @@ int main()
         {
             TMC4671_EN();
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right
-            tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, targetValue);
+            tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, -targetValue);
             ADC_flag = 1;
         }
         else

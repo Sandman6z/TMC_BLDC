@@ -723,11 +723,11 @@ Image Symbol Table
     USB_LP_CAN1_RX0_IRQHandler               0x080001a3   Thumb Code     0  startup_stm32f10x_md.o(.text)
     WWDG_IRQHandler                          0x080001a3   Thumb Code     0  startup_stm32f10x_md.o(.text)
     __user_initial_stackheap                 0x080001a5   Thumb Code     0  startup_stm32f10x_md.o(.text)
-    main                                     0x080001c9   Thumb Code   266  main_1.o(.text)
-    NVIC_Configuration                       0x080002d3   Thumb Code    14  main_1.o(.text)
-    RCC_Configuration                        0x080002e1   Thumb Code    70  main_1.o(.text)
-    TIM_Configuration                        0x08000327   Thumb Code   226  main_1.o(.text)
-    SetSysClockTo16                          0x08000409   Thumb Code   106  main_1.o(.text)
+    main                                     0x080001c9   Thumb Code   268  main_1.o(.text)
+    NVIC_Configuration                       0x080002d5   Thumb Code    14  main_1.o(.text)
+    RCC_Configuration                        0x080002e3   Thumb Code    70  main_1.o(.text)
+    TIM_Configuration                        0x08000329   Thumb Code   226  main_1.o(.text)
+    SetSysClockTo16                          0x0800040b   Thumb Code   106  main_1.o(.text)
     NMI_Handler                              0x0800048d   Thumb Code     2  stm32f10x_it_1.o(.text)
     HardFault_Handler                        0x0800048f   Thumb Code     4  stm32f10x_it_1.o(.text)
     MemManage_Handler                        0x08000493   Thumb Code     4  stm32f10x_it_1.o(.text)
@@ -1389,7 +1389,7 @@ Image component sizes
        848        116          0          4          0       2404   bsp_monitor.o
       1064         48          0          0          0       3019   bsp_tmc4671.o
        104         18          0          0          0        564   bsp_turboctrl.o
-       708         26          0         24        152     303974   main_1.o
+       708         24          0         24        152     303974   main_1.o
        220         22          0          0          0       1861   misc.o
         64         26        236          0       1536        856   startup_stm32f10x_md.o
       1102         26          0          0          0      11105   stm32f10x_adc.o
@@ -1408,7 +1408,7 @@ Image component sizes
        480         38          0         20          0       1787   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-     16632        754        268        116       1748     407548   Object Totals
+     16632        752        268        116       1748     407548   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          4          0          0          2          0          0   (incl. Padding)
 
@@ -1491,9 +1491,9 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     22420       1122        332        116       1844     406784   Grand Totals
-     22420       1122        332        116       1844     406784   ELF Image Totals
-     22420       1122        332        116          0          0   ROM Totals
+     22420       1120        332        116       1844     406784   Grand Totals
+     22420       1120        332        116       1844     406784   ELF Image Totals
+     22420       1120        332        116          0          0   ROM Totals
 
 ==============================================================================
 
