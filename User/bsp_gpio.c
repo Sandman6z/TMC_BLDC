@@ -4,23 +4,9 @@
 
 void GPIO_Configuration(void)
 { 
-    GPIO_InitTypeDef GPIO_InitStructure;      	
+    GPIO_InitTypeDef GPIO_InitStructure;
+    
     GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable,ENABLE);
-
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;        //LED
-    GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_5;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
-
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;        //LED
-    GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_6;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
-
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;        //LED
-    GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_11;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);
 
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;        //Discharge resistor
     GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_4;
@@ -32,11 +18,6 @@ void GPIO_Configuration(void)
     GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_7;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
-
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;   //KEY
-    GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_15;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);
 
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;   //OVER_I
     GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_3;

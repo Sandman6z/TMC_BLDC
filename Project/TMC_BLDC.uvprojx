@@ -315,7 +315,7 @@
           <Cads>
             <interw>1</interw>
             <Optim>1</Optim>
-            <oTime>0</oTime>
+            <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
             <Strict>0</Strict>
@@ -420,11 +420,6 @@
               <FilePath>..\User\bsp_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_IIC_FMEEP.C</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\bsp_IIC_FMEEP.C</FilePath>
-            </File>
-            <File>
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\bsp_led.c</FilePath>
@@ -433,16 +428,6 @@
               <FileName>bsp_TMC4671.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\bsp_TMC4671.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_Uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\bsp_Uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_uart_process.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\bsp_uart_process.c</FilePath>
             </File>
             <File>
               <FileName>bsp_monitor.c</FileName>

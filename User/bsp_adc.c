@@ -1,8 +1,14 @@
 #include "bsp_adc.h"
 #include "../Core/Inc/main.h"
 #include "bsp_TMC4671.h"
+#include "stm32f10x.h"
 
-void ADC1_MODE_CONFIG(void)
+//__IO uint16_t ADCConvertedValue[10] = {0};
+//uint32_t ADCValue[5] = {0};
+
+uint16_t ADC_count = 0;
+
+void ADC1_CONFIG(void)
 {
     DMA_InitTypeDef DMA_InitStructure;
     ADC_InitTypeDef ADC_InitStructure;
@@ -70,4 +76,30 @@ void ADC1_MODE_CONFIG(void)
 
     /* Enable DMA channel1 */
     DMA_Cmd(DMA1_Channel1, ENABLE);            
+}
+
+void ADCCalc(void)
+{
+    if (ADC_count < 4)
+    {
+        ADC_count++;
+        for (int i = 0; i < 6; i++) 
+        {
+            ADCValue[i] += ADCConvertedValue[i];
+        }
+        int t = 10;
+        while (t--)
+        {
+            ClearWDG();
+        }
+    }
+    if (ADC_count >= 4)
+    {
+        ADC_count = 0;
+        for (int i = 0; i < 6; i++)
+        {
+            ADCVolt[i] = (ADCValue[i] * 825) >> 12;     //(ADCValue[i] *3300 / 4) >> 12;
+            ADCValue[i] = 0;
+        }
+    }
 }

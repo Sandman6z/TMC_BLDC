@@ -3,7 +3,7 @@
 
 void WorkStateIndicate(void)
 {
-    if (POWER == 1 && TemStatus == 1 && Res_STATUS == 1)
+    if (gBusPower == 1 && gMOSTemp == 1 && gRES_status == 1)
         STAT_OUT_NORMAL;
     else
         STAT_OUT_ERROR;
@@ -28,7 +28,7 @@ void LED_GPIO_Config(void)
 void LED_Running(void)
 {
     LED1_ON;
-    Delay_ms(200);
+
     LED1_OFF;
-    Delay_ms(200);
+
 }

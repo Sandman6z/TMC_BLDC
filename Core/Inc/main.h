@@ -23,31 +23,20 @@
 #define     Turbo_Minspeed      3000
 #define     Turbo_MAXspeed      60000
 
-/*********���ڲ���************/
-extern u8 nRec1, R_Data1, Rx_Buf1[15], RI1_flag;
-extern u8 Tx_Buf2[30];
-extern u8 nRec2, R_Data2, Rx_Buf2[15], RI2_flag;
-
 extern unsigned int timeout;
 extern unsigned char TIMEcount;
 extern unsigned char ms_timeout;
-extern unsigned char nRF_Sec;
-extern unsigned char timeout_18B20;
-extern unsigned char LED_stat;
-
-extern uint8_t rtc_flag, warkup_flag;
-
+extern uint8_t rtc_flag;
 extern __IO uint16_t ADCConvertedValue[];
 extern uint32_t ADCValue[];
 extern uint32_t ADCVolt[];
-extern uint32_t POWER, TemStatus, Braking, Res_STATUS;
-extern int32_t Voltage_BUS, targetValue;
+extern uint32_t gBusPower, gMOSTemp, gBraking, gRES_status;
+extern int32_t gBusVoltage;
 
 void NVIC_Configuration(void);
 void GPIO_Configuration(void);
 void RCC_Configuration(void);
 void TIM_Configuration(void);
-void Delay(u32 nCount);
 void initBase(void);
 void SetSysClockTo16(void);
 

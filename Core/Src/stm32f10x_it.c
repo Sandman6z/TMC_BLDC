@@ -173,26 +173,17 @@ void TIM2_IRQHandler(void)
         TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
         if (timeout)
             timeout--;
-        if (timeout_18B20)
-            timeout_18B20--;
+
         TIMEcount++;
 
         if (TIMEcount >= TIME_SEC_CYCLE)
         {
             TIMEcount = 0;
-            nRF_Sec++;
 
-            LED_stat = !LED_stat; // LEDָʾ����˸
-            if (LED_stat)
-                GPIO_SetBits(GPIOA, GPIO_Pin_11);
-            else
-                GPIO_ResetBits(GPIOA, GPIO_Pin_11);
             TIM_Cmd(TIM1, DISABLE);
-            FAN_SPEED_S = TIM_GetCounter(TIM1); // ����ת�ٻ�ȡ
             TIM_SetCounter(TIM1, 0);
             TIM_Cmd(TIM1, ENABLE);
-            FAN_SPEED_M = FAN_SPEED_S * 60; // ERROR_SPEED_FAN_MAX - 2;//a[1]*6;
-            FAN_COUNT = 0;
+           
         }
     }
 }
@@ -280,7 +271,7 @@ void EXTI0_IRQHandler(void)
     if (EXTI_GetITStatus(EXTI_Line0) != RESET)
     {
         EXTI_ClearITPendingBit(EXTI_Line0);
-        warkup_flag = 1;
+        
     }
 }
 /******************************************************************************/
@@ -421,60 +412,7 @@ void UART4_IRQHandler(void)
  */
 void USART2_IRQHandler(void)
 {
-    if (USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
-    {
-        R_Data2 = USART_ReceiveData(USART2); // ��������
-        if (nRec2 == 0)
-        {
-            if ((R_Data2 == 'S') || (R_Data2 == 's'))
-            {
-              Rx_Buf2[nRec2] = R_Data2;
-              nRec2++;
-            }
-            else
-              nRec2 = 0;
-        }
-        else if (nRec2 == 1)
-        {
-            if ((R_Data2 == 'E') || (R_Data2 == 'e'))
-            {
-                Rx_Buf2[nRec2] = R_Data2;
-                nRec2++;
-            }
-            else
-                nRec2 = 0;
-        }
-        else if (nRec2 == 2)
-        {
-            if (R_Data2 == '=')
-            {
-                Rx_Buf2[nRec2] = R_Data2;
-                nRec2++;
-            }
-            else
-                nRec2 = 0;
-        }
-        else if ((nRec2 == 3) || (nRec2 == 4) || (nRec2 == 5) || (nRec2 == 6) || (nRec2 == 7))
-        {
-            Rx_Buf2[nRec2] = R_Data2;
-            nRec2++;
-        }
-        else if (nRec2 == 8)
-        {
-            if (R_Data2 == ',')
-            {
-                Rx_Buf2[nRec2] = R_Data2;
-                nRec2 = 0;
-                RI2_flag = 1;
-            }
-            else
-                nRec2 = 0;
-        }
-        else
-            nRec2 = 0;
-    } 
-    if (USART_GetITStatus(USART2, USART_IT_TXE) != RESET)
-        USART_SendData(USART2, 0);
+
 }
 
 /******************************************************************************/

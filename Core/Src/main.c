@@ -21,30 +21,29 @@
 #include "../../User/bsp_uart_process.h"
 #include "../../User/bsp_monitor.h"
 
-uint8_t rtc_flag = 0, warkup_flag = 0;
-__IO uint16_t ADCConvertedValue[15] = {0};
-uint32_t ADCValue[15] = {0}, ADCVolt[15] = {0};
+uint8_t rtc_flag = 0;
+__IO uint16_t ADCConvertedValue[ADC1_CH_NUM] = {0};
+uint32_t ADCValue[5] = {0}, ADCVolt[5] = {0};
 /**
-The table below gives the meaning of these variable: POWER, TemStatus, Braking, Res_STATUS
-  =======================================================+
-     VALUE     |          0          |         1         |
-  =======================================================+
-     POWER     |        FAULT        |      NORMAL       |
-  -------------------------------------------------------+
-   TemStatus   |  MOS_Temp OVERHEAT  |  MOS_Temp NORMAL  |
-  -------------------------------------------------------+
-    Braking    |       NORMAL        |   Overvoltaging   |
-  -------------------------------------------------------+
-   Res_STATUS  |    Break circuit    |      NORMAL       |
-  =======================================================+
+The table below gives the meaning of these variable: gBusPower, gMOSTemp, gBraking, gRES_status
+  ========================================================+
+      VALUE     |          0          |         1         |
+  ========================================================+
+    gBusPower   |        FAULT        |      NORMAL       |
+  --------------------------------------------------------+
+    gMOSTemp    |  MOS_Temp OVERHEAT  |  MOS_Temp NORMAL  |
+  --------------------------------------------------------+
+    gBraking    |       NORMAL        |   Overvoltaging   |
+  --------------------------------------------------------+
+   gRES_status  |    Break circuit    |      NORMAL       |
+  ======================================================-=+
 */
-uint32_t POWER = 0, TemStatus = 0, Braking = 0, Res_STATUS = 1; 
-int32_t targetValue = 0;
+uint32_t gBusPower = 0, gMOSTemp = 0, gBraking = 0, gRES_status = 1;
+int32_t gBusVoltage = 0, gTargetValue = 0;
+uint16_t ADC_flag = 0;
 
 int main()
 {
-    uint16_t ADC_count = 0, ADC_flag = 0;
-
     SysInit();
     __set_PRIMASK(0);
 
@@ -64,41 +63,20 @@ int main()
     while (1)
     {
         ClearWDG();
-        if (ADC_count < 4)
-        {
-            ADC_count++;
-            for (int i = 0; i < 6; i++) 
-            {
-                ADCValue[i] += ADCConvertedValue[i];
-            }
-            int t = 10;
-            while (t--)
-            {
-                ClearWDG();
-            }
-        }
-        if (ADC_count >= 4)
-        {
-            ADC_count = 0;
-            for (int i = 0; i < 6; i++)
-            {
-                ADCVolt[i] = (ADCValue[i] * 825) >> 12;     //(ADCValue[i] *3300 / 4) >> 12;
-                ADCValue[i] = 0;
-            }
-        }
+        ADCCalc();
         MOS_TempCheck();
+        BUS_Voltage_Calc();
         PowerCheck();
         Overvoltage_oprate();
         ResExistDetect();
         WorkStateIndicate();
-        DISABLE_TMC();
-        targetValue = inverseMapADCValue(ADCVolt[1]);                           //get DAC value from BDU control board
-        if (targetValue >= Turbo_Minspeed && targetValue <= Turbo_MAXspeed )    //&& POWER == 1 && TemStatus == 1 && Res_STATUS == 1
+        gTargetValue = inverseMapADCValue(ADCVolt[1]);                           //get DAC value from BDU control board
+        if (gTargetValue >= Turbo_Minspeed && gTargetValue <= Turbo_MAXspeed )    //&& gBusPower == 1 && gMOSTemp == 1 && gRES_status == 1
         {
             ClearWDG();
             TMC4671_EN();
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right
-            tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, -targetValue);
+            tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, -gTargetValue);
             ADC_flag = 1;
         }
         else
@@ -159,8 +137,7 @@ void TIM_Configuration(void)
 {
     TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
     NVIC_InitTypeDef NVIC_InitStructure;
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE); // ��TIM2��ʱ��
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE); // ��TIM2��ʱ��
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
 
     TIM_DeInit(TIM2);
     TIM_InternalClockConfig(TIM2);
@@ -173,34 +150,12 @@ void TIM_Configuration(void)
     TIM_ClearFlag(TIM2, TIM_FLAG_Update);
     TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
     TIM_Cmd(TIM2, ENABLE);
-    // TIM_ARRPreloadConfig(TIM5, ENABLE);
-
-    TIM_DeInit(TIM3);
-    TIM_InternalClockConfig(TIM3);
-    TIM_TimeBaseStructure.TIM_Period = 999;
-    TIM_TimeBaseStructure.TIM_Prescaler = 55;
-    TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-    TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
-    // TIM_PrescalerConfig(TIM2, 36, TIM_PSCReloadMode_Immediate);
-    TIM_ClearFlag(TIM3, TIM_FLAG_Update);
-    /* TIM IT enable
-       Enable TIM2 Update interrupt [TIM2����ж�����]*/
-    TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
-    TIM_Cmd(TIM3, ENABLE);
 
     /*TIM2�ж�ʹ��*/
     //    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
     NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn; // �ж�ͨ��
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3; // ���ȼ�
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    NVIC_Init(&NVIC_InitStructure);
-
-    /*TIM3�ж�ʹ��*/
-    NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn; // �ж�ͨ��
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 4; // ���ȼ�
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 }
