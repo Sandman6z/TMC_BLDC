@@ -32,6 +32,7 @@
 .\objects\bsp_monitor.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\objects\bsp_monitor.o: ..\User\../Core/Inc/../../User/bsp_adc.h
 .\objects\bsp_monitor.o: ..\User\../User/bsp_gpio.h
+.\objects\bsp_monitor.o: ..\User\../User/bsp_led.h
 .\objects\bsp_monitor.o: ..\User\../User/bsp_uart.h
 .\objects\bsp_monitor.o: ..\User\../User/bsp_uart_process.h
 .\objects\bsp_monitor.o: ..\User\../User/bsp_monitor.h

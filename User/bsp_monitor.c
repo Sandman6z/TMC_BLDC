@@ -2,6 +2,7 @@
 #include "../Core/Inc/main.h"
 #include "../User/bsp_adc.h"
 #include "../User/bsp_gpio.h"
+#include "../User/bsp_led.h"
 #include "../User/bsp_uart.h"
 #include "../User/bsp_uart_process.h"
 #include "../User/bsp_monitor.h"
@@ -123,7 +124,7 @@ void SysInit(void)
 int inverseMapADCValue(uint16_t adc_value) 
 {
     float target_value;
-    target_value = (float)(adc_value * 13.107 - 365.15);
+    target_value = (float)(adc_value * 19.38 - 326.8);
     
     // 确保目标值在合法范围内（3000到42000之间）
     if (target_value < Turbo_Minspeed) 

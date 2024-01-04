@@ -95,9 +95,10 @@ int main()
         targetValue = inverseMapADCValue(ADCVolt[1]);                           //get DAC value from BDU control board
         if (targetValue >= Turbo_Minspeed && targetValue <= Turbo_MAXspeed )    //&& POWER == 1 && TemStatus == 1 && Res_STATUS == 1
         {
+            ClearWDG();
             TMC4671_EN();
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right
-            tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, targetValue);
+            tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, -targetValue);
             ADC_flag = 1;
         }
         else
@@ -105,6 +106,7 @@ int main()
             if (ADC_flag)
             {
                 ADC_flag = 0;
+                ClearWDG();
                 tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002); // Rotate right
                 tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, 0);
                 TMC4671_DIS();
