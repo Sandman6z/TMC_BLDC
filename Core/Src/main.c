@@ -23,7 +23,7 @@
 
 uint8_t rtc_flag = 0;
 __IO uint16_t ADCConvertedValue[ADC1_CH_NUM] = {0};
-uint32_t ADCValue[5] = {0}, ADCVolt[5] = {0};
+uint32_t ADCVolt[ADC1_CH_NUM] = {0};
 /**
 The table below gives the meaning of these variable: gBusPower, gMOSTemp, gBraking, gRES_status
   ========================================================+
@@ -39,8 +39,8 @@ The table below gives the meaning of these variable: gBusPower, gMOSTemp, gBraki
   ======================================================-=+
 */
 uint32_t gBusPower = 0, gMOSTemp = 0, gBraking = 0, gRES_status = 1;
-int32_t gBusVoltage = 0, gTargetValue = 0;
-uint16_t ADC_flag = 0;
+int32_t gTargetValue = 0;
+uint16_t turboRunning = 0;
 
 int main()
 {
@@ -64,26 +64,26 @@ int main()
     {
         ClearWDG();
         ADCCalc();
-        MOS_TempCheck();
         BUS_Voltage_Calc();
         PowerCheck();
         Overvoltage_oprate();
+        MOS_TempCheck();
         ResExistDetect();
         WorkStateIndicate();
         gTargetValue = inverseMapADCValue(ADCVolt[1]);                           //get DAC value from BDU control board
-        if (gTargetValue >= Turbo_Minspeed && gTargetValue <= Turbo_MAXspeed )    //&& gBusPower == 1 && gMOSTemp == 1 && gRES_status == 1
+        if (gTargetValue >= Turbo_Minspeed && gTargetValue <= Turbo_MAXspeed )  //&& gBusPower == 1 && gMOSTemp == 1 && gRES_status == 1
         {
             ClearWDG();
             TMC4671_EN();
             tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right
             tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, -gTargetValue);
-            ADC_flag = 1;
+            turboRunning = 1;
         }
         else
         {
-            if (ADC_flag)
+            if (turboRunning)
             {
-                ADC_flag = 0;
+                turboRunning = 0;
                 ClearWDG();
                 tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002); // Rotate right
                 tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, 0);

@@ -3,11 +3,6 @@
 #include "bsp_TMC4671.h"
 #include "stm32f10x.h"
 
-//__IO uint16_t ADCConvertedValue[10] = {0};
-//uint32_t ADCValue[5] = {0};
-
-uint16_t ADC_count = 0;
-
 void ADC1_CONFIG(void)
 {
     DMA_InitTypeDef DMA_InitStructure;
@@ -80,17 +75,15 @@ void ADC1_CONFIG(void)
 
 void ADCCalc(void)
 {
+    static uint16_t ADC_count = 0;
+    static uint32_t ADCValue[ADC1_CH_NUM] = {0};
+    
     if (ADC_count < 4)
     {
         ADC_count++;
         for (int i = 0; i < 6; i++) 
         {
             ADCValue[i] += ADCConvertedValue[i];
-        }
-        int t = 10;
-        while (t--)
-        {
-            ClearWDG();
         }
     }
     if (ADC_count >= 4)

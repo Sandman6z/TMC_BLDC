@@ -31,7 +31,7 @@ extern __IO uint16_t ADCConvertedValue[];
 extern uint32_t ADCValue[];
 extern uint32_t ADCVolt[];
 extern uint32_t gBusPower, gMOSTemp, gBraking, gRES_status;
-extern int32_t gBusVoltage;
+//extern int32_t gBusVoltage;
 
 void NVIC_Configuration(void);
 void GPIO_Configuration(void);

@@ -12,8 +12,8 @@
 #define LED_ERROR_OFF   	GPIO_SetBits(GPIOB, GPIO_Pin_6)
 #define LED_ERROR_ON    	GPIO_ResetBits(GPIOB, GPIO_Pin_6)
 
-#define STAT_OUT_NORMAL 	GPIO_SetBits(GPIOB, GPIO_Pin_7)
-#define STAT_OUT_ERROR  	GPIO_ResetBits(GPIOB, GPIO_Pin_7)
+#define WorkingNORMAL       GPIO_SetBits(GPIOB, GPIO_Pin_7)
+#define WorkingERROR        GPIO_ResetBits(GPIOB, GPIO_Pin_7)
 
 #define LED1_GPIO_PORT      GPIOB
 #define LED1_GPIO_CLK       RCC_APB2Periph_GPIOB

@@ -163,62 +163,57 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ADCValue,0x0A</ItemText>
+          <ItemText>ADCConvertedValue,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ADCConvertedValue,0x0A</ItemText>
+          <ItemText>gBusPower,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gBusPower,0x0A</ItemText>
+          <ItemText>gMOSTemp,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gMOSTemp,0x0A</ItemText>
+          <ItemText>gBraking,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gBraking,0x0A</ItemText>
+          <ItemText>gRES_status,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gRES_status,0x0A</ItemText>
+          <ItemText>gBusVoltage,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gBusVoltage,0x0A</ItemText>
+          <ItemText>gTargetValue,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gTargetValue,0x0A</ItemText>
+          <ItemText>ADC_count,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ADC_count,0x0A</ItemText>
+          <ItemText>VCC</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ADC_flag,0x0A</ItemText>
+          <ItemText>temp</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>1</WinNumber>
-          <ItemText>VCC</ItemText>
-        </Ww>
-        <Ww>
-          <count>12</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>temp</ItemText>
+          <ItemText>turboRunning,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>

@@ -4,13 +4,11 @@
 void WorkStateIndicate(void)
 {
     if (gBusPower == 1 && gMOSTemp == 1 && gRES_status == 1)
-        STAT_OUT_NORMAL;
+        WorkingNORMAL;
     else
-        STAT_OUT_ERROR;
+        WorkingERROR;
 }
 
-
-//PB7 LED
 
 void LED_GPIO_Config(void)
 {
@@ -23,12 +21,4 @@ void LED_GPIO_Config(void)
     GPIO_Init(LED1_GPIO_PORT, &GPIO_InitStructure);
 
     GPIO_SetBits(LED1_GPIO_PORT, LED1_GPIO_PIN);
-}
-
-void LED_Running(void)
-{
-    LED1_ON;
-
-    LED1_OFF;
-
 }
