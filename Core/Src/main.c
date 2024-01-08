@@ -64,9 +64,9 @@ int main()
     {
         ClearWDG();
         ADCCalc();
-        BUS_Voltage_Calc();
+        BUSVoltageCalc();
         PowerCheck();
-        Overvoltage_oprate();
+        OverVoltageOprate();
         MOS_TempCheck();
         ResExistDetect();
         WorkStateIndicate();
@@ -75,7 +75,7 @@ int main()
         {
             ClearWDG();
             TMC4671_EN();
-            tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);     // Rotate right
+            tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);
             tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, -gTargetValue);
             turboRunning = 1;
         }
@@ -85,7 +85,7 @@ int main()
             {
                 turboRunning = 0;
                 ClearWDG();
-                tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002); // Rotate right
+                tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);
                 tmc4671_writeInt(0, TMC4671_PID_VELOCITY_TARGET, 0);
                 TMC4671_DIS();
             }

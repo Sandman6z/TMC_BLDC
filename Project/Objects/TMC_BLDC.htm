@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\TMC_BLDC.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\TMC_BLDC.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Fri Jan 05 17:16:57 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jan 08 09:44:41 2024
 <BR><P>
 <H3>Maximum Stack Usage =        304 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -341,11 +341,11 @@ Global Symbols
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysInit
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ResExistDetect
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PowerCheck
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Overvoltage_oprate
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OverVoltageOprate
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MOS_TempCheck
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUS_Voltage_Calc
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUSVoltageCalc
 <LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADCCalc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
@@ -705,8 +705,8 @@ Global Symbols
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 </UL>
 
-<P><STRONG><a name="[4f]"></a>BUS_Voltage_Calc</STRONG> (Thumb, 42 bytes, Stack size 24 bytes, bsp_monitor.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = BUS_Voltage_Calc &rArr; __aeabi_dmul
+<P><STRONG><a name="[4f]"></a>BUSVoltageCalc</STRONG> (Thumb, 42 bytes, Stack size 24 bytes, bsp_monitor.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = BUSVoltageCalc &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
@@ -720,8 +720,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[51]"></a>Overvoltage_oprate</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, bsp_monitor.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Overvoltage_oprate
+<P><STRONG><a name="[51]"></a>OverVoltageOprate</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, bsp_monitor.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = OverVoltageOprate
 </UL>
 <BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
@@ -1132,7 +1132,7 @@ Global Symbols
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_GPIO_Config
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WorkStateIndicate
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TurboCtrl
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Overvoltage_oprate
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OverVoltageOprate
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1145,7 +1145,7 @@ Global Symbols
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WorkStateIndicate
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TurboCtrl
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysInit
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Overvoltage_oprate
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OverVoltageOprate
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1962,7 +1962,7 @@ Global Symbols
 <P><STRONG><a name="[b5]"></a>__aeabi_d2iz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfix.o(x$fpl$dfix))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2iz
 </UL>
-<BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUS_Voltage_Calc
+<BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUSVoltageCalc
 </UL>
 
 <P><STRONG><a name="[10e]"></a>_dfix</STRONG> (Thumb, 94 bytes, Stack size 32 bytes, dfix.o(x$fpl$dfix), UNUSED)
@@ -1978,7 +1978,7 @@ Global Symbols
 <P><STRONG><a name="[b4]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUS_Voltage_Calc
+<BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUSVoltageCalc
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;log
 </UL>
@@ -2032,7 +2032,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2d
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_temperature
-<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUS_Voltage_Calc
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUSVoltageCalc
 </UL>
 
 <P><STRONG><a name="[113]"></a>_f2d</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d), UNUSED)
@@ -2087,7 +2087,7 @@ Global Symbols
 <P><STRONG><a name="[b2]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
 <BR><BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_temperature
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseMapADCValue
-<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUS_Voltage_Calc
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUSVoltageCalc
 </UL>
 
 <P><STRONG><a name="[218]"></a>_ffltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu), UNUSED)

@@ -4,9 +4,9 @@
 void WorkStateIndicate(void)
 {
     if (gBusPower == 1 && gMOSTemp == 1 && gRES_status == 1)
-        WorkingNORMAL;
+        WorkingLEDON;
     else
-        WorkingERROR;
+        WorkingLEDOFF;
 }
 
 

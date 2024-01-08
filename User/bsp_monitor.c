@@ -18,7 +18,7 @@ void wdg_init(void)
     WWDG_Enable(0x7f);
 }
 
-void BUS_Voltage_Calc(void)
+void BUSVoltageCalc(void)
 {
     gBusVoltage = (float)ADCVolt[0] * 6.77;            //gBusVoltage:Voltage of BUS
 }
@@ -31,7 +31,7 @@ void PowerCheck(void)
         gBusPower = 1;  //for debug Turbo stop.
 }
 
-void Overvoltage_oprate(void)
+void OverVoltageOprate(void)
 {
     if (gBusVoltage > 2800)
     {
