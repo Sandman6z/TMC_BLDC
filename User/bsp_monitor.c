@@ -97,7 +97,7 @@ void SysInit(void)
  */
 int inverseMapADCValue(uint16_t adcValue) 
 {
-    float targetValue = adcValue * 13.014f - 114.25f;
+    float targetValue = adcValue * 20.592f - 3257.2f;
     
     // 确保目标值在合法范围内
     if (targetValue < Turbo_Minspeed) 
