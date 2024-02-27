@@ -62,6 +62,7 @@
     "adc.h": "c",
     "stm32f10x.h": "c",
     "tmc4671.h": "c",
-    "fan_ctrl.h": "c"
+    "fan_ctrl.h": "c",
+    "bsp_IIC_FMEEP.C": "cpp"
   }
 }

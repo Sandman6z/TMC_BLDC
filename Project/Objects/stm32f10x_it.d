@@ -31,4 +31,3 @@
 .\objects\stm32f10x_it.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\objects\stm32f10x_it.o: ..\Core\Src\../Inc/main.h
 .\objects\stm32f10x_it.o: ..\Core\Src\../Inc/../../User/bsp_adc.h
-.\objects\stm32f10x_it.o: ..\Core\Src\../../User/bsp_uart_process.h

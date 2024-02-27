@@ -3,8 +3,6 @@
 #include "../User/bsp_adc.h"
 #include "../User/bsp_gpio.h"
 #include "../User/bsp_led.h"
-#include "../User/bsp_uart.h"
-#include "../User/bsp_uart_process.h"
 #include "../User/bsp_monitor.h"
 
 int32_t gBusVoltage = 0;
