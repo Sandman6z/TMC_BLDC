@@ -1,3 +1,8 @@
+#define LED_MODULE_ENABLED
+#ifdef LED_MODULE_ENABLED
+
+
+
 #include "../Core/Inc/main.h"
 #include "bsp_led.h"
 
@@ -22,3 +27,5 @@ void LED_GPIO_Config(void)
 
     GPIO_SetBits(LED1_GPIO_PORT, LED1_GPIO_PIN);
 }
+
+#endif

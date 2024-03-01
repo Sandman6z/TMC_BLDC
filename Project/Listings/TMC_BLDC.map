@@ -1382,7 +1382,7 @@ Image component sizes
 
        464         24          0          2         32       1002   bsp_adc.o
        244         18          0          0          0        589   bsp_gpio.o
-       108         16          0          0          0        612   bsp_led.o
+       108         16          0          0          0        616   bsp_led.o
        728        102          0          4          0       2179   bsp_monitor.o
       1064         48          0          0          0       3019   bsp_tmc4671.o
         92         14          0          0          0        460   bsp_turboctrl.o
@@ -1405,7 +1405,7 @@ Image component sizes
        480         38          0         20          0       1787   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-     15924        686        268        120       1616     407100   Object Totals
+     15924        686        268        120       1616     407104   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          4          0          0          2          0          0   (incl. Padding)
 
@@ -1488,8 +1488,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     21668       1054        332        120       1712     406320   Grand Totals
-     21668       1054        332        120       1712     406320   ELF Image Totals
+     21668       1054        332        120       1712     406324   Grand Totals
+     21668       1054        332        120       1712     406324   ELF Image Totals
      21668       1054        332        120          0          0   ROM Totals
 
 ==============================================================================
