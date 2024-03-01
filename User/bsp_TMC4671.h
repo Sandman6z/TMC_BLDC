@@ -14,6 +14,8 @@ void tmc4671_writeInt(uint8_t fg, uint8_t addr, int32_t dt);
 uint32_t tmc4671_readInt(uint8_t fg, uint8_t addr, uint32_t dt);
 void tmc4671_init_set(void);
 
+#define TMC4671_RUN_Mode tmc4671_writeInt(0, TMC4671_MODE_RAMP_MODE_MOTION, 0x00000002);
+
 #define TMC4671_MODE_RAMP_MODE_MOTION       0x63
 #define TMC4671_PID_TORQUE_FLUX_TARGET      0x64
 #define TMC4671_PID_VELOCITY_TARGET         0x66

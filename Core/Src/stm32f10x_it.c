@@ -1,59 +1,35 @@
 /**
- ******************************************************************************
- * @file    Project/STM32F10x_StdPeriph_Template/stm32f10x_it.c
- * @author  MCD Application Team
- * @version V3.5.0
- * @date    08-April-2011
- * @brief   Main Interrupt Service Routines.
- *          This file provides template for all exceptions handler and
- *          peripherals interrupt service routine.
- ******************************************************************************
- * @attention
- *
- * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
- * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
- * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
- * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
- * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
- * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
- *
- * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
- ******************************************************************************
- */
+  ******************************************************************************
+  * @file    Project/STM32F10x_StdPeriph_Template/stm32f10x_it.c 
+  * @author  MCD Application Team
+  * @version V3.6.0
+  * @date    20-September-2021
+  * @brief   Main Interrupt Service Routines.
+  *          This file provides template for all exceptions handler and 
+  *          peripherals interrupt service routine.
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2011 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 #include "../Inc/main.h"
 
-#define TIMEcycle 50       // 1 seconds per cycle
-#define TIME_MS_CYCLE 2    // ÿ1ms
 #define TIME_SEC_CYCLE 100 // 1 seconds per cycle
 
 unsigned int timeout;
-unsigned char timeout_18B20;
 unsigned char TIMEcount;
 unsigned char ms_timeout;
-unsigned char LED_stat;
-unsigned char nRF_Sec;
-unsigned int FAN_SPEED_S, FAN_SPEED_M;
-unsigned int FAN_COUNT;
 u8 DMA_flag = 0;
-u8 motor_flag, Beep_count;
-u8 nRec1, R_Data1, Rx_Buf1[15], RI1_flag;
-u8 nRec2, R_Data2, Rx_Buf2[15], RI2_flag;
-u8 Tx_Buf2[30];
-u16 Key_Read, Key_Save, Key_Count, Key_Value, Key_Value_Save, Key_Press_flag;
-
-/** @addtogroup STM32F10x_StdPeriph_Template
- * @{
- */
-
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
 
 /******************************************************************************/
 /*            Cortex-M3 Processor Exceptions Handlers                         */
@@ -182,7 +158,6 @@ void TIM2_IRQHandler(void)
             TIM_Cmd(TIM1, DISABLE);
             TIM_SetCounter(TIM1, 0);
             TIM_Cmd(TIM1, ENABLE);
-           
         }
     }
 }
@@ -236,14 +211,11 @@ void RTCAlarm_IRQHandler(void)
 {
     if (RTC_GetITStatus(RTC_IT_ALR) != RESET)
     {
-        /* Clear EXTI line17 pending bit */
-        EXTI_ClearITPendingBit(EXTI_Line17);
-
+        EXTI_ClearITPendingBit(EXTI_Line17);    // Clear EXTI line17 pending bit
         /* Check if the Wake-Up flag is set */
         if (PWR_GetFlagStatus(PWR_FLAG_WU) != RESET)
         {
-          /* Clear Wake Up flag */
-          PWR_ClearFlag(PWR_FLAG_WU);
+            PWR_ClearFlag(PWR_FLAG_WU);   // Clear Wake Up flag
         }
         /* Wait until last write operation on RTC registers has finished */
         RTC_WaitForLastTask();
@@ -270,7 +242,6 @@ void EXTI0_IRQHandler(void)
     if (EXTI_GetITStatus(EXTI_Line0) != RESET)
     {
         EXTI_ClearITPendingBit(EXTI_Line0);
-        
     }
 }
 /******************************************************************************/
@@ -288,7 +259,6 @@ void EXTI9_5_IRQHandler(void)
 {
     if (EXTI_GetITStatus(EXTI_Line5) != RESET)
         EXTI_ClearITPendingBit(EXTI_Line5);
-
 }
 
 /******************************************************************************/
@@ -359,59 +329,12 @@ void DMA2_Channel4_IRQHandler(void)
  * @param  None
  * @retval None
  */
-void UART5_IRQHandler(void)
-{
-    if (USART_GetITStatus(UART5, USART_IT_TXE) != RESET)
-        USART_SendData(UART5, 0);
-    if (USART_GetITStatus(UART5, USART_IT_RXNE) != RESET)
-        USART_ReceiveData(UART5); // ��������
-}
-/******************************************************************************/
-/*            STM32F10x Peripherals Interrupt Handlers                        */
-/******************************************************************************/
-
-/**
- * @brief  This function handles USARTy global interrupt request.
- * @param  None
- * @retval None
- */
 void USART1_IRQHandler(void)
 {
     if (USART_GetITStatus(USART1, USART_IT_TXE) != RESET)
         USART_SendData(USART1, 0);
     if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
         USART_ReceiveData(USART1);                          // ��������
-}
-
-/******************************************************************************/
-/*            STM32F10x Peripherals Interrupt Handlers                        */
-/******************************************************************************/
-
-/**
- * @brief  This function handles USARTy global interrupt request.
- * @param  None
- * @retval None
- */
-void UART4_IRQHandler(void)
-{
-    if (USART_GetITStatus(UART4, USART_IT_RXNE) != RESET)
-        USART_ReceiveData(UART4);                           // ��������
-    if (USART_GetITStatus(UART4, USART_IT_TXE) != RESET)
-        USART_SendData(UART4, 0);
-}
-
-/******************************************************************************/
-/*            STM32F10x Peripherals Interrupt Handlers                        */
-/******************************************************************************/
-
-/**
- * @brief  This function handles USARTy global interrupt request.
- * @param  None
- * @retval None
- */
-void USART2_IRQHandler(void)
-{
-
 }
 
 /******************************************************************************/
