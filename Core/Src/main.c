@@ -98,7 +98,7 @@ int main()
 //        // 延时2秒
 //        Delay(2000);
 
-        gTargetValue = inverseMapADCValue(ADCVolt[1]);                           //get DAC value from BDU control board
+//        gTargetValue = inverseMapADCValue(ADCVolt[1]);                           //get DAC value from BDU control board
         if (gTargetValue >= Turbo_Minspeed && gTargetValue <= Turbo_MAXspeed )  //&& gBusPower == 1 && gMOSTemp == 1 && gRES_status == 1
         {
             ClearWDG();
@@ -188,21 +188,21 @@ void TIM_Configuration(void)
     NVIC_Init(&NVIC_InitStructure);
     
 
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+   RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
 
-    TIM_DeInit(TIM3);
-    TIM_InternalClockConfig(TIM3);
+    TIM_DeInit(TIM4);
+    TIM_InternalClockConfig(TIM4);
     TIM_TimeBaseStructure.TIM_Period = 10000 - 1; // 2秒
     TIM_TimeBaseStructure.TIM_Prescaler = 7200 - 1; // 72MHz / 7200 = 10kHz
     TIM_TimeBaseStructure.TIM_ClockDivision = 0;
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-    TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
-    TIM_ClearFlag(TIM3, TIM_FLAG_Update);
-    TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
-    TIM_Cmd(TIM3, ENABLE);
+    TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
+    TIM_ClearFlag(TIM4, TIM_FLAG_Update);
+    TIM_ITConfig(TIM4, TIM_IT_Update, ENABLE);
+    TIM_Cmd(TIM4, ENABLE);
 
-    /*TIM3中断优先级设置*/
-    NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn; // 中断通道
+    /*TIM4中断优先级设置*/
+    NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn; // 中断通道
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1; // 抢占优先级
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; // 子优先级
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; // 使能中断通道

@@ -207,6 +207,23 @@ void TIM3_IRQHandler(void)
     }
 }
 
+void TIM4_IRQHandler(void)
+{
+    if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)
+    {
+        TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
+
+        // 每两秒切换gTargetValue的值
+        if (gTargetValue == 6000)
+        {
+            gTargetValue = 60000;
+        }
+        else
+        {
+            gTargetValue = 6000;
+        }
+    }
+}
 /***********************************************************
  *��������: SPI2�жϺ�������PCM1770������Ƶ����
  *��    �룺��

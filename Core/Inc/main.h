@@ -19,6 +19,7 @@ extern uint8_t rtc_flag;
 extern __IO uint16_t ADCConvertedValue[];
 extern uint32_t ADCVolt[];
 extern uint32_t gBusPower, gMOSTemp, gBraking, gRES_status;
+extern int32_t gTargetValue;
 
 void NVIC_Configuration(void);
 void RCC_Configuration(void);
