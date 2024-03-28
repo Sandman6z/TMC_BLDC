@@ -1,9 +1,9 @@
 .\objects\main_1.o: ..\Core\Src\main.c
 .\objects\main_1.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\main_1.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\main_1.o: ..\Core\Src\../Inc/main.h
 .\objects\main_1.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x.h
 .\objects\main_1.o: ..\Libraries\CMSIS\CoreSupport\core_cm3.h
-.\objects\main_1.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\main_1.o: ..\Libraries\CMSIS\system_stm32f10x.h
 .\objects\main_1.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_conf.h
 .\objects\main_1.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h
