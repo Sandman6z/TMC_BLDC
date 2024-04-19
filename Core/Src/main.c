@@ -68,7 +68,7 @@ int main()
         MOS_TempCheck();
         ResExistDetect();
         WorkStateIndicate();
-        gTargetValue = inverseMapADCValue(ADCVolt[1]);                           //get DAC value from BDU control board
+//        gTargetValue = inverseMapADCValue(ADCVolt[1]);                           //get DAC value from BDU control board
         if (gTargetValue >= Turbo_Minspeed && gTargetValue <= Turbo_MAXspeed )  //&& gBusPower == 1 && gMOSTemp == 1 && gRES_status == 1
         {
             ClearWDG();

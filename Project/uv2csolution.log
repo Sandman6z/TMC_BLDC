@@ -1,0 +1,14 @@
+0 out of 1 target(s) converted
+Error: 1 error(s), 5 warning(s):
+Errors:
+	<Target> "BLDC" μVision project is configured to use Arm Compiler 5.
+	CMSIS csolution projects support Arm Compiler 6 only.
+	For details on how to manually migrate to AC6, see
+	https://developer.arm.com/documentation/100068/0621/Migrating-from-Arm-Compiler-5-to-Arm-Compiler-for-Embedded-6
+Warnings:
+	<Target> "BLDC" File 'C:/Users/zbn02/Desktop/TMC_BLDC/Project/STM32F10x_StdPeriph_Driver/inc' not matched
+	<Target> "BLDC" File 'C:/Users/zbn02/Desktop/TMC_BLDC/Project/STM32F10x_StdPeriph_Driver/src' not matched
+	<Target> "BLDC" File 'C:/Users/zbn02/Desktop/TMC_BLDC/STM32F107' not matched
+	<Target> "BLDC" File 'C:/Users/zbn02/Desktop/TMC_BLDC/NIBP-PS-2.00调试+风扇正常/FWlib' not matched
+	<Target> "BLDC" File 'C:/Users/zbn02/Desktop/TMC_BLDC/NIBP-PS-2.00调试+风扇正常' not matched
+Process failed with exit code 2
