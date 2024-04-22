@@ -211,16 +211,18 @@ void TIM4_IRQHandler(void)
 {
     if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)
     {
+        uint16_t Value_min = 6000;
+        uint16_t Value_max = 60000;
         TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
 
         // 每两秒切换gTargetValue的值
-        if (gTargetValue == 6000)
+        if (gTargetValue == Value_min)
         {
-            gTargetValue = 60000;
+            gTargetValue = Value_max;
         }
         else
         {
-            gTargetValue = 6000;
+            gTargetValue = Value_min;
         }
     }
 }

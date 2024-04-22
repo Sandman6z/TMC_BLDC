@@ -40,22 +40,7 @@ The table below gives the meaning of these variable: gBusPower, gMOSTemp, gBraki
 */
 uint32_t gBusPower = 0, gMOSTemp = 0, gBraking = 0, gRES_status = 1;
 int32_t gTargetValue = 0;
-//volatile uint32_t gTargetValue = 000;
 uint16_t turboRunning = 0;
-
-void Delay(uint32_t ms)
-{
-    uint32_t ticks = ms * (SystemCoreClock / 1000);
-    SysTick_Config(ticks);
-    while (SysTick_Config(ticks) != 0)
-    {
-        // 等待SysTick_Config成功
-    }
-    while (SysTick->CTRL & SysTick_CTRL_ENABLE_Msk)
-    {
-        // 等待定时器倒计时完成
-    }
-}
 
 int main()
 {
@@ -86,19 +71,6 @@ int main()
         ResExistDetect();
         WorkStateIndicate();
 
-//         if (gTargetValue == 6000)
-//        {
-//            gTargetValue = 60000;
-//        }
-//        else
-//        {
-//            gTargetValue = 6000;
-//        }
-
-//        // 延时2秒
-//        Delay(2000);
-
-//        gTargetValue = inverseMapADCValue(ADCVolt[1]);                           //get DAC value from BDU control board
         if (gTargetValue >= Turbo_Minspeed && gTargetValue <= Turbo_MAXspeed )  //&& gBusPower == 1 && gMOSTemp == 1 && gRES_status == 1
         {
             ClearWDG();
